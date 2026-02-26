@@ -1,5 +1,9 @@
 # CASOS DE USO --- SISTEMA DE RESERVA DE INGRESSOS
 
+## Diagrama 
+![Diagrama caso de uso](images/diagramaUC.png "Title")
+
+
 ## 👤 Atores
 
 -   **A1 --- Cliente**
