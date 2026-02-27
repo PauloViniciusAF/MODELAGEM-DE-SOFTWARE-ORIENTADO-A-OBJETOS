@@ -359,3 +359,10 @@
 
 -   Cliente cancela operação (ESC).
 -   Senha inválida reinicia processo.
+
+
+
+## Diagrama de Classes
+![Diagrama de classes](images/diagramaDeClasse.jpeg "Title")
+
+
