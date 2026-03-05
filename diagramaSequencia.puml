@@ -1,0 +1,754 @@
+@startuml UC01_ConsultarFilmesEmCartaz
+title UC01 - Consultar Filmes em Cartaz
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+C -> S: 1. Acessa "Filmes em cartaz"
+activate S
+
+S -> BD: 2. Consulta filmes disponíveis
+activate BD
+BD --> S: 3. Retorna lista de filmes
+deactivate BD
+
+alt Filmes disponíveis
+    S --> C: 4. Exibe filmes (título, sinopse,\nclassificação indicativa, sessões)
+    C -> S: 5. Seleciona filme para ver detalhes
+    S --> C: 6. Exibe detalhes e sessões do filme
+else FA1 - Nenhum filme disponível
+    S --> C: "Nenhum filme em cartaz no momento"
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC02_SelecionarSessao
+title UC02 - Selecionar Sessão
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+S --> C: 1. Apresenta sessões disponíveis\n(horários, salas, locais)
+C -> S: 2. Seleciona uma sessão
+activate S
+
+S -> BD: 3. Verifica assentos disponíveis na sessão
+activate BD
+BD --> S: 4. Status dos assentos
+deactivate BD
+
+alt Assentos disponíveis
+    S --> C: 5. Apresenta mapa de assentos da sala
+else FA1 - Sessão esgotada
+    S --> C: "Sessão esgotada"
+    S --> C: Sugere outras sessões disponíveis
+    C -> S: Seleciona outra sessão
+    note right: Retorna ao passo 3\ndo fluxo principal
+end
+
+deactivate S
+
+note over C, S
+  FA2 - Em qualquer passo, o cliente pode
+  voltar à lista de filmes (UC01)
+end note
+@enduml
+
+
+@startuml UC03_EscolherAssento
+title UC03 - Escolher Assento
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+S --> C: 1. Exibe mapa de assentos\n(disponíveis, ocupados, reservados)
+C -> S: 2. Seleciona assento(s) desejado(s)
+activate S
+
+ref over S, BD: <<include>> UC08\nVerificar Disponibilidade
+
+S -> BD: 3. Verifica disponibilidade em tempo real
+activate BD
+BD --> S: 4. Confirmação de disponibilidade
+deactivate BD
+
+S -> BD: 5. Reserva assento(s) temporariamente
+activate BD
+BD --> S: 6. Confirmação de reserva temporária
+deactivate BD
+
+S --> C: 7. Exibe resumo da seleção
+deactivate S
+
+alt FA1 - Assento indisponível
+    S --> C: "Assento indisponível,\npor favor selecione outro"
+    S --> C: Atualiza mapa de assentos
+    note right: Retorna ao passo 2
+else FA2 - Cliente cancela seleção
+    C -> S: Cancela seleção
+    activate S
+    S -> BD: Libera assentos reservados temporariamente
+    activate BD
+    BD --> S: Confirmação
+    deactivate BD
+    S --> C: Retorna à seleção de sessão (UC02)
+    deactivate S
+end
+@enduml
+
+
+@startuml UC04_ReservarIngresso
+title UC04 - Reservar Ingresso
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+participant ":SistemaPagamento" as SP
+
+S --> C: 1. Exibe resumo da reserva\n(filme, sessão, assento(s), valor total)
+C -> S: 2. Confirma reserva
+activate S
+
+ref over S, BD: <<include>> UC08\nVerificar Disponibilidade
+
+S -> BD: 3. Verifica disponibilidade dos assentos
+activate BD
+BD --> S: 4. Assentos disponíveis
+deactivate BD
+
+opt FA1 - Cliente solicita meia-entrada
+    ref over C, S: <<extend>> UC09\nAplicar Meia-entrada
+    S -> S: Atualiza valor com desconto
+end
+
+opt FA2 - Ingresso gratuito de aniversário
+    ref over C, S, BD: <<extend>> UC10\nConceder Ingresso Gratuito
+    S -> S: Valor zerado, pagamento dispensado
+end
+
+opt FA3 - Melhores assentos por antecedência
+    ref over C, S, BD: <<extend>> UC11\nReservar Melhores Assentos
+    S --> C: Mapa com assentos premium
+end
+
+ref over C, S, SP: <<include>> UC07\nProcessar Pagamento
+
+S -> SP: 5. Processa pagamento
+activate SP
+SP --> S: 6. Pagamento aprovado
+deactivate SP
+
+S -> S: 7. Emite ingresso digital
+S -> BD: 8. Registra venda\n(ingressos e renda)
+activate BD
+BD --> S: 9. Confirmação
+deactivate BD
+
+S -> BD: 10. Atualiza disponibilidade dos assentos
+activate BD
+BD --> S: 11. Confirmação
+deactivate BD
+
+S --> C: 12. Confirma reserva com ingresso digital
+deactivate S
+
+alt FA4 - Pagamento recusado
+    SP --> S: Pagamento recusado
+    S --> C: "Pagamento recusado"
+    S -> BD: Libera assentos reservados
+    activate BD
+    BD --> S: Confirmação
+    deactivate BD
+    S --> C: Opção de tentar novamente ou cancelar
+else FA5 - Assento não mais disponível
+    BD --> S: Assento reservado por outro cliente
+    S --> C: "Assento não mais disponível"
+    note right: Retorna ao UC03
+end
+@enduml
+
+
+@startuml UC05_CancelarReserva
+title UC05 - Cancelar Reserva
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+participant ":SistemaPagamento" as SP
+
+C -> S: 1. Acessa "Minhas Reservas"
+activate S
+
+S -> BD: 2. Consulta reservas ativas do cliente
+activate BD
+BD --> S: 3. Lista de reservas ativas
+deactivate BD
+
+S --> C: 4. Exibe lista de reservas ativas
+C -> S: 5. Seleciona reserva para cancelar
+
+S -> BD: 6. Verifica política de cancelamento
+activate BD
+BD --> S: 7. Política de cancelamento
+deactivate BD
+
+alt Cancelamento permitido
+    S --> C: 8. Solicita confirmação do cancelamento
+    C -> S: 9. Confirma cancelamento
+
+    S -> BD: 10. Cancela reserva
+    activate BD
+    BD --> S: 11. Reserva cancelada
+    deactivate BD
+
+    S -> SP: 12. Processa reembolso
+    activate SP
+    SP --> S: 13. Reembolso processado
+    deactivate SP
+
+    S -> BD: 14. Libera assentos
+    activate BD
+    BD --> S: 15. Assentos liberados
+    deactivate BD
+
+    S --> C: 16. Confirma cancelamento ao cliente
+
+else FA1 - Cancelamento fora do prazo
+    S --> C: "Cancelamento não permitido — prazo expirado"
+    S --> C: Informa política de cancelamento vigente
+end
+
+deactivate S
+
+alt FA2 - Falha no reembolso
+    SP --> S: Falha no processamento
+    S --> C: "Falha no reembolso — tente novamente mais tarde"
+    S -> BD: Registra reserva como "cancelamento pendente"
+    activate BD
+    BD --> S: Confirmação
+    deactivate BD
+else FA3 - Cliente desiste do cancelamento
+    C -> S: Não confirma cancelamento
+    S --> C: Mantém reserva ativa\nRetorna à lista de reservas
+end
+@enduml
+
+
+@startuml UC06_ImprimirIngresso
+title UC06 - Imprimir Ingresso
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+participant ":Impressora" as I
+
+C -> S: 1. Acessa "Meus Ingressos"
+activate S
+
+S --> C: 2. Exibe ingressos digitais do cliente
+C -> S: 3. Seleciona ingresso para imprimir
+C -> S: 4. Solicita impressão
+
+S -> I: 5. Envia ingresso para impressora
+activate I
+
+alt Impressão bem-sucedida
+    I --> S: 6. Confirmação de impressão
+    deactivate I
+    S --> C: 7. Ingresso impresso com sucesso
+else FA1 - Impressora indisponível
+    I --> S: Erro / Indisponível
+    deactivate I
+    S --> C: "Impressora indisponível no momento"
+    S --> C: Sugere utilizar ingresso digital no celular
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC07_ProcessarPagamento
+title UC07 - Processar Pagamento\n<<include>> de UC04
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+participant ":Operadora/Banco" as OB
+
+S --> C: 1. Exibe valor total da reserva
+S --> C: 2. Solicita forma de pagamento\n(cartão crédito, débito, PIX, etc.)
+C -> S: 3. Seleciona forma de pagamento
+activate S
+
+S --> C: 4. Solicita dados de pagamento
+C -> S: 5. Informa dados de pagamento
+
+S -> S: 6. Valida dados informados
+
+alt Dados válidos
+    S -> OB: 7. Processa transação
+    activate OB
+
+    alt Transação aprovada
+        OB --> S: 8. Confirmação de aprovação
+        deactivate OB
+        S --> C: 9. Registra pagamento e emite comprovante
+    else FA1 - Pagamento recusado
+        OB --> S: Transação recusada
+        deactivate OB
+        S --> C: "Pagamento recusado — verifique os dados\nou tente outra forma de pagamento"
+        S --> C: Opção de informar novos dados
+        note right: Retorna ao passo 4\nou cliente cancela
+    end
+
+else FA2 - Dados de pagamento inválidos
+    S --> C: "Dados inválidos — por favor\ncorrija as informações"
+    note right: Retorna ao passo 4
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC08_VerificarDisponibilidade
+title UC08 - Verificar Disponibilidade\n<<include>> de UC03 e UC04
+
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+S -> BD: 1. Consulta assentos em tempo real
+activate BD
+BD --> S: 2. Status dos assentos
+deactivate BD
+
+S -> S: 3. Verifica se assento(s)\nestão livres
+
+alt Assento(s) disponíveis
+    S -> BD: 4. Reserva assento(s) temporariamente
+    activate BD
+    BD --> S: 5. Confirmação de reserva temporária
+    deactivate BD
+else FA1 - Assento já reservado
+    S -> S: Rejeita solicitação
+    S --> S: Retorna status "indisponível"
+    note right: O caso de uso\nchamador trata\na indisponibilidade
+end
+@enduml
+
+
+@startuml UC09_AplicarMeiaEntrada
+title UC09 - Aplicar Meia-entrada\n<<extend>> de UC04
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+
+C -> S: 1. Informa desejo de meia-entrada
+activate S
+
+S --> C: 2. Solicita categoria do benefício\n(estudante, maior de 65 anos, professor)
+C -> S: 3. Seleciona categoria
+
+S --> C: 4. Solicita documento comprobatório
+C -> S: 5. Apresenta/informa documento
+
+S -> S: 6. Valida comprovação
+
+alt Comprovação válida
+    S -> S: 7. Aplica desconto de 50%
+    S --> C: 8. Valor atualizado com desconto\nRegistra categoria do ingresso
+else FA1 - Comprovação inválida
+    S --> C: "Comprovação inválida — desconto\nde meia-entrada não pode ser aplicado"
+    S --> C: Opção de apresentar outro documento\nou prosseguir com ingresso integral
+    note right: Retorna ao passo 4\nou segue FA2
+else FA2 - Cliente opta por ingresso integral
+    C -> S: Opta por ingresso integral
+    S --> C: Mantém valor original do ingresso
+    note right: Retorna ao fluxo do UC04
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC10_ConcederIngressoGratuitoAniversario
+title UC10 - Conceder Ingresso Gratuito de Aniversário\n<<extend>> de UC04
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+C -> S: 1. Solicita ingresso gratuito de aniversário
+activate S
+
+S -> BD: 2. Verifica cadastro no programa de fidelidade
+activate BD
+BD --> S: 3. Status do cadastro
+deactivate BD
+
+alt Cliente é membro do programa
+    S -> BD: 4. Verifica mês de aniversário
+    activate BD
+    BD --> S: 5. Dados de aniversário
+    deactivate BD
+
+    alt Mês corresponde ao aniversário
+        S -> BD: 6. Verifica se benefício já foi usado no mês
+        activate BD
+        BD --> S: 7. Status do benefício
+        deactivate BD
+
+        alt Benefício disponível
+            S -> S: 8. Aplica benefício (valor zerado)
+            S -> BD: 9. Registra utilização do benefício
+            activate BD
+            BD --> S: 10. Confirmação
+            deactivate BD
+            S --> C: 11. Ingresso gratuito concedido
+        else FA3 - Benefício já utilizado no mês
+            S --> C: "Benefício de aniversário\njá utilizado neste mês"
+            S --> C: Opção de prosseguir com compra normal
+        end
+
+    else FA2 - Não é mês de aniversário
+        S --> C: "Benefício disponível apenas\nno mês de seu aniversário"
+        S --> C: Opção de prosseguir com compra normal
+    end
+
+else FA1 - Cliente não cadastrado
+    S --> C: "Benefício disponível apenas para\nmembros do programa de fidelidade"
+    S --> C: Opção de prosseguir com compra normal
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC11_ReservarMelhoresAssentosPorAntecedencia
+title UC11 - Reservar Melhores Assentos por Antecedência\n<<extend>> de UC04
+
+actor ":Cliente" as C
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+S -> BD: 1. Verifica cadastro no programa de fidelidade
+activate S
+activate BD
+BD --> S: 2. Status do cadastro
+deactivate BD
+
+alt Cliente é membro do programa
+    S -> S: 3. Verifica se compra é com\n>= 2 dias de antecedência
+
+    alt Antecedência suficiente (>= 2 dias)
+        S -> BD: 4. Consulta assentos premium/preferenciais
+        activate BD
+        BD --> S: 5. Assentos premium disponíveis
+        deactivate BD
+        S --> C: 6. Mapa com melhores assentos destacados
+        C -> S: 7. Seleciona assento(s) (incluindo premium)
+
+    else FA2 - Compra sem antecedência mínima
+        S --> C: Exibe apenas assentos convencionais
+        note right: Retorna ao fluxo\nnormal do UC03/UC04
+    end
+
+else FA1 - Não é membro do programa
+    S --> C: Exibe apenas assentos convencionais
+    note right: Retorna ao fluxo\nnormal do UC03/UC04
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC12_GerenciarFilmes
+title UC12 - Gerenciar Filmes
+
+actor ":Administrador" as A
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+A -> S: 1. Acessa gerenciamento de filmes
+activate S
+
+S -> BD: 2. Consulta filmes cadastrados
+activate BD
+BD --> S: 3. Lista de filmes
+deactivate BD
+
+S --> A: 4. Exibe lista de filmes cadastrados
+A -> S: 5. Seleciona ação\n(cadastrar, editar ou remover)
+A -> S: 6. Informa/altera dados do filme\n(título, sinopse, duração,\nclassificação, gênero)
+
+S -> S: 7. Valida dados informados
+
+alt Dados válidos
+    S -> BD: 8. Salva alterações
+    activate BD
+    BD --> S: 9. Confirmação
+    deactivate BD
+    S --> A: 10. Confirma operação ao administrador
+
+else FA1 - Dados inválidos
+    S --> A: Mensagens de erro por campo inválido
+    note right: Retorna ao passo 6
+end
+
+alt FA2 - Filme com sessões ativas (remoção)
+    S -> BD: Verifica sessões vinculadas
+    activate BD
+    BD --> S: Sessões ativas encontradas
+    deactivate BD
+    S --> A: "Filme não pode ser removido\n— possui sessões ativas"
+    S --> A: Lista sessões vinculadas
+end
+
+alt FA3 - Filme já cadastrado
+    S --> A: "Filme já cadastrado no sistema"
+    S --> A: Sugere editar registro existente
+end
+@enduml
+
+
+@startuml UC13_GerenciarSessoes
+title UC13 - Gerenciar Sessões
+
+actor ":Administrador" as A
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+A -> S: 1. Acessa gerenciamento de sessões
+activate S
+
+S -> BD: 2. Consulta sessões cadastradas
+activate BD
+BD --> S: 3. Lista de sessões
+deactivate BD
+
+S --> A: 4. Exibe lista de sessões
+A -> S: 5. Seleciona ação\n(cadastrar, editar ou remover)
+A -> S: 6. Informa/altera dados da sessão\n(filme, sala, horário, local/unidade)
+
+S -> BD: 7. Valida dados e verifica\nconflitos de horário/sala
+activate BD
+BD --> S: 8. Resultado da validação
+deactivate BD
+
+alt Sem conflitos
+    S -> BD: 9. Salva sessão
+    activate BD
+    BD --> S: 10. Confirmação
+    deactivate BD
+    S --> A: 11. Confirma operação
+
+else FA1 - Conflito de horário/sala
+    S --> A: "Conflito de horário —\nsala já ocupada neste horário"
+    S --> A: Exibe sessões com conflito
+    S --> A: Sugere horários/salas alternativas
+    note right: Retorna ao passo 6
+end
+
+alt FA2 - Sessão com ingressos vendidos (remoção)
+    S --> A: "Sessão não pode ser removida\n— há ingressos vendidos"
+    S --> A: Exibe quantidade de ingressos vendidos
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC14_GerenciarSalas
+title UC14 - Gerenciar Salas
+
+actor ":Administrador" as A
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+A -> S: 1. Acessa gerenciamento de salas
+activate S
+
+S -> BD: 2. Consulta salas cadastradas
+activate BD
+BD --> S: 3. Lista de salas por local/unidade
+deactivate BD
+
+S --> A: 4. Exibe salas organizadas por local/unidade
+A -> S: 5. Seleciona ação\n(cadastrar, editar ou remover)
+A -> S: 6. Informa/altera dados da sala\n(nome/número, capacidade,\nmapa de assentos, local/unidade)
+
+S -> S: 7. Valida dados informados
+
+alt Dados válidos
+    S -> BD: 8. Salva alterações
+    activate BD
+    BD --> S: 9. Confirmação
+    deactivate BD
+    S --> A: 10. Confirma operação
+
+else FA2 - Dados inválidos
+    S --> A: Mensagens de erro\n(ex.: capacidade igual a zero)
+    note right: Retorna ao passo 6
+end
+
+alt FA1 - Sala com sessões ativas (remoção)
+    S -> BD: Verifica sessões vinculadas
+    activate BD
+    BD --> S: Sessões agendadas encontradas
+    deactivate BD
+    S --> A: "Sala não pode ser removida\n— possui sessões agendadas"
+    S --> A: Lista sessões vinculadas
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC15_GerarRelatoriosDeVendas
+title UC15 - Gerar Relatórios de Vendas
+
+actor ":Administrador" as A
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+
+A -> S: 1. Acessa área de relatórios
+activate S
+
+S --> A: 2. Exibe opções de tipo de relatório\n(por sessão, filme, sala, cinema, período)
+A -> S: 3. Seleciona tipo de relatório
+A -> S: 4. Informa filtros aplicáveis\n(datas, filme, sala, unidade)
+
+S -> BD: 5. Consulta histórico de vendas e reservas
+activate BD
+BD --> S: 6. Dados de vendas
+deactivate BD
+
+alt Dados encontrados
+    S -> S: 7. Consolida dados:\n- Ingressos vendidos\n- Renda obtida\n- Meia-entrada por categoria
+    S --> A: 8. Exibe relatório consolidado
+    S --> A: 9. Oferece opção de exportar relatório
+
+else FA1 - Nenhum dado disponível
+    S --> A: "Nenhum dado encontrado\npara os filtros selecionados"
+    S --> A: Sugere alterar filtros
+    note right: Retorna ao passo 3
+end
+
+deactivate S
+
+note over S, BD
+  FA2 - Relatório automático:
+  Ao término de cada sessão, o sistema
+  gera relatório automaticamente e
+  armazena no histórico.
+end note
+@enduml
+
+
+@startuml UC16_EnviarRelatoriosParaANCINE
+title UC16 - Enviar Relatórios para ANCINE
+
+actor ":Administrador" as A
+participant ":Sistema" as S
+database ":BaseDeDados" as BD
+participant ":Sistema ANCINE" as SA
+
+S -> BD: 1. Gera relatório obrigatório\napós término da sessão
+activate S
+activate BD
+BD --> S: 2. Dados da sessão\n(ingressos, renda, categorias)
+deactivate BD
+
+A -> S: 3. Acessa relatórios para ANCINE
+S --> A: 4. Exibe relatórios pendentes de envio
+A -> S: 5. Revisa relatório
+A -> S: 6. Confirma envio
+
+S -> SA: 7. Transmite relatório
+activate SA
+
+alt Recebimento confirmado
+    SA --> S: 8. Confirmação de recebimento
+    deactivate SA
+
+    S -> BD: 9. Marca relatório como "enviado"
+    activate BD
+    BD --> S: 10. Confirmação
+    deactivate BD
+
+    S --> A: 11. Confirma envio ao administrador
+
+else FA1 - Falha na comunicação com ANCINE
+    SA --> S: Falha na conexão
+    deactivate SA
+    S --> A: "Falha na comunicação com ANCINE"
+    S -> S: Agenda reenvio automático
+    S -> BD: Registra tentativa com falha no log
+    activate BD
+    BD --> S: Confirmação
+    deactivate BD
+    S --> A: Notifica sobre falha e agendamento
+
+else FA2 - Relatório rejeitado pela ANCINE
+    SA --> S: Rejeição com erros encontrados
+    deactivate SA
+    S --> A: Exibe erros ao administrador
+    A -> S: Corrige dados necessários
+    note right: Retorna ao passo 6\npara reenvio
+end
+
+deactivate S
+@enduml
+
+
+@startuml UC17_ConsultarListaOficialANCINE
+title UC17 - Consultar Lista Oficial ANCINE
+
+actor ":Administrador" as A
+participant ":Sistema" as S
+participant ":Sistema ANCINE" as SA
+database ":BaseDeDados" as BD
+
+A -> S: 1. Acessa "Consultar Lista Oficial ANCINE"
+activate S
+
+S -> SA: 2. Envia requisição de consulta
+activate SA
+
+alt Comunicação bem-sucedida
+    SA --> S: 3. Retorna lista oficial de filmes
+    deactivate SA
+
+    S --> A: 4. Exibe lista de filmes ao administrador
+    A -> S: 5. Seleciona títulos para disponibilizar
+    A -> S: 6. Associa títulos às salas/unidades
+
+    S -> BD: 7. Registra títulos disponibilizados\npor sala (com base na lista ANCINE)
+    activate BD
+    BD --> S: 8. Confirmação
+    deactivate BD
+
+    S --> A: 9. Confirma operação
+
+else FA1 - Falha na comunicação com ANCINE
+    SA --> S: Falha na conexão
+    deactivate SA
+    S --> A: "Falha na comunicação com o serviço\nda ANCINE — tente novamente mais tarde"
+
+else FA3 - Lista vazia retornada pela ANCINE
+    SA --> S: Lista vazia
+    deactivate SA
+    S --> A: "Nenhum filme disponível na lista\noficial da ANCINE no momento"
+end
+
+deactivate S
+
+alt FA2 - Filme já cadastrado no sistema
+    S --> A: "Filme já cadastrado no sistema"
+    S --> A: Destaca filmes já existentes
+    A -> S: Opta por atualizar dados\nou ignorar
+    note right: Retorna ao passo 5
+end
+@enduml
