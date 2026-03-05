@@ -11,7 +11,7 @@
 
 ------------------------------------------------------------------------
 
-# UC01 --- Consultar Filmes em Cartaz
+# 01 --- Consultar Filmes em Cartaz
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Sistema disponível e conectado.\
@@ -30,7 +30,7 @@
 
 ------------------------------------------------------------------------
 
-# UC02 --- Selecionar Sessão
+# 02 --- Selecionar Sessão
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Filme selecionado.\
@@ -50,7 +50,7 @@
 
 ------------------------------------------------------------------------
 
-# UC03 --- Escolher Assento
+# 03 --- Escolher Assento
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Sessão selecionada.\
@@ -70,7 +70,7 @@
 
 ------------------------------------------------------------------------
 
-# UC04 --- Reservar Ingresso
+# 04 --- Reservar Ingresso
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Assento selecionado.\
@@ -94,7 +94,7 @@
 
 ------------------------------------------------------------------------
 
-# UC05 --- Cancelar Reserva
+# 05 --- Cancelar Reserva
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Reserva existente.\
@@ -114,7 +114,7 @@
 
 ------------------------------------------------------------------------
 
-# UC06 --- Processar Pagamento
+# 06 --- Processar Pagamento
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Reserva em andamento.\
@@ -133,7 +133,7 @@
 
 ------------------------------------------------------------------------
 
-# UC07 --- Imprimir Ingresso
+# 07 --- Imprimir Ingresso
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Ingresso digital emitido.\
@@ -151,7 +151,7 @@
 
 ------------------------------------------------------------------------
 
-# UC08 --- Aplicar Regras de Meia-entrada
+# 08 --- Aplicar Regras de Meia-entrada
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Cliente solicita meia-entrada.\
@@ -170,7 +170,7 @@
 
 ------------------------------------------------------------------------
 
-# UC09 --- Verificar Disponibilidade
+# 09 --- Verificar Disponibilidade
 
 **Ator:** Cliente\
 **Pré-condição:** Assento selecionado.\
@@ -183,7 +183,7 @@
 
 ------------------------------------------------------------------------
 
-# UC10 --- Ingresso Gratuito Aniversário
+# 10 --- Ingresso Gratuito Aniversário
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Cliente elegível no programa de fidelidade.\
@@ -202,7 +202,7 @@
 
 ------------------------------------------------------------------------
 
-# UC11 --- Melhores Assentos Antecedência
+# 11 --- Melhores Assentos Antecedência
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Compra realizada com até dois dias de antecedência.\
@@ -220,7 +220,7 @@
 
 ------------------------------------------------------------------------
 
-# UC12 --- Gerenciar Filmes
+# 12 --- Gerenciar Filmes
 
 **Ator:** A2 --- Administrador\
 **Pré-condição:** Administrador autenticado.\
@@ -238,7 +238,7 @@
 
 ------------------------------------------------------------------------
 
-# UC13 --- Gerenciar Sessões
+# 13 --- Gerenciar Sessões
 
 **Ator:** A2 --- Administrador\
 **Pré-condição:** Filmes cadastrados.\
@@ -256,7 +256,7 @@
 
 ------------------------------------------------------------------------
 
-# UC14 --- Gerenciar Salas
+# 14 --- Gerenciar Salas
 
 **Ator:** A2 --- Administrador\
 **Pré-condição:** Administrador autenticado.\
@@ -273,7 +273,7 @@
 
 ------------------------------------------------------------------------
 
-# UC15 --- Gerar Relatórios
+# 15 --- Gerar Relatórios
 
 **Ator:** A2 --- Administrador\
 **Pré-condição:** Dados disponíveis.\
@@ -291,7 +291,7 @@
 
 ------------------------------------------------------------------------
 
-# UC16 --- Integrar Lista Oficial ANCINE
+# 16 --- Integrar Lista Oficial ANCINE
 
 **Ator:** A2 --- Administrador\
 **Pré-condição:** Integração configurada.\
@@ -308,7 +308,7 @@
 
 ------------------------------------------------------------------------
 
-# UC17 --- Relatório por Sessão
+# 17 --- Relatório por Sessão
 
 **Ator:** A2 --- Administrador\
 **Pré-condição:** Sessão finalizada.\
@@ -325,7 +325,7 @@
 
 ------------------------------------------------------------------------
 
-# UC18 --- Relatório Consolidado
+#Relatório Consolidado
 
 **Ator:** A2 --- Administrador\
 **Pré-condição:** Dados históricos disponíveis.\
@@ -342,7 +342,7 @@
 
 ------------------------------------------------------------------------
 
-# UC19 --- Validar Usuário
+# Validar Usuário
 
 **Ator:** A1 --- Cliente\
 **Pré-condição:** Tela de login ativa.\
