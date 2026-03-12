@@ -12,11 +12,57 @@
 
 ---
 
+# UC00 --- Realizar Login
+
+**ID:** UC00\
+**Ator(es):** A1 --- Cliente, A2 --- Administrador\
+**Pré-condição:** O usuário possui cadastro ativo no sistema.\
+**Pós-condição:** O usuário é autenticado e direcionado à área correspondente ao seu perfil (cliente ou administrador).
+
+## Fluxo Principal
+
+1. O usuário acessa a tela de login do sistema.
+2. O sistema solicita as credenciais de acesso (e-mail e senha).
+3. O usuário informa o e-mail e a senha.
+4. O sistema valida as credenciais informadas.
+5. O sistema identifica o perfil do usuário (cliente ou administrador).
+6. O sistema autentica o usuário e redireciona para a tela inicial correspondente ao seu perfil.
+
+## Fluxos Alternativos
+
+**FA1 --- Credenciais inválidas:**
+1. No passo 4, o sistema identifica que o e-mail ou a senha estão incorretos.
+2. O sistema exibe a mensagem "E-mail ou senha inválidos".
+3. O sistema incrementa o contador de tentativas falhas.
+4. O fluxo retorna ao passo 2 do fluxo principal.
+
+**FA2 --- Conta bloqueada por excesso de tentativas:**
+1. No passo 4, o sistema identifica que o número máximo de tentativas falhas foi atingido (ex.: 5 tentativas).
+2. O sistema bloqueia temporariamente a conta do usuário.
+3. O sistema exibe a mensagem "Conta bloqueada temporariamente — tente novamente em 30 minutos ou entre em contato com o suporte".
+4. O caso de uso é encerrado.
+
+**FA3 --- Usuário não cadastrado:**
+1. No passo 4, o sistema não encontra o e-mail informado na base de dados.
+2. O sistema exibe a mensagem "Usuário não encontrado — verifique o e-mail ou cadastre-se".
+3. O sistema oferece a opção de realizar cadastro.
+4. O caso de uso é encerrado.
+
+**FA4 --- Recuperação de senha:**
+1. Em qualquer passo, o usuário seleciona a opção "Esqueci minha senha".
+2. O sistema solicita o e-mail cadastrado.
+3. O usuário informa o e-mail.
+4. O sistema envia um link de redefinição de senha para o e-mail informado.
+5. O sistema exibe a mensagem "Link de recuperação enviado para o e-mail informado".
+6. O caso de uso é encerrado.
+
+---
+
 # UC01 --- Consultar Filmes em Cartaz
 
 **ID:** UC01\
 **Ator(es):** A1 --- Cliente\
-**Pré-condição:** O sistema está disponível e conectado à base de dados.\
+**Pré-condição:** O cliente está autenticado no sistema (UC00 realizado) e o sistema está conectado à base de dados.\
 **Pós-condição:** A lista de filmes em cartaz é exibida ao cliente.
 
 ## Fluxo Principal
@@ -40,7 +86,7 @@
 
 **ID:** UC02\
 **Ator(es):** A1 --- Cliente\
-**Pré-condição:** O cliente selecionou um filme em cartaz (UC01 realizado).\
+**Pré-condição:** O cliente está autenticado no sistema (UC00 realizado) e selecionou um filme em cartaz (UC01 realizado).\
 **Pós-condição:** A sessão é escolhida e o mapa de assentos é apresentado.
 
 ## Fluxo Principal
@@ -69,7 +115,7 @@
 
 **ID:** UC03\
 **Ator(es):** A1 --- Cliente\
-**Pré-condição:** O cliente selecionou uma sessão (UC02 realizado).\
+**Pré-condição:** O cliente está autenticado no sistema (UC00 realizado) e selecionou uma sessão (UC02 realizado).\
 **Pós-condição:** O(s) assento(s) é(são) selecionado(s) e reservado(s) temporariamente.
 
 ## Fluxo Principal
@@ -99,7 +145,7 @@
 
 **ID:** UC04\
 **Ator(es):** A1 --- Cliente\
-**Pré-condição:** O cliente selecionou assento(s) (UC03 realizado).\
+**Pré-condição:** O cliente está autenticado no sistema (UC00 realizado) e selecionou assento(s) (UC03 realizado).\
 **Pós-condição:** A reserva é confirmada, o ingresso é emitido e a disponibilidade é atualizada.
 
 ## Fluxo Principal
@@ -152,7 +198,7 @@
 
 **ID:** UC05\
 **Ator(es):** A1 --- Cliente\
-**Pré-condição:** O cliente possui uma reserva existente no sistema.\
+**Pré-condição:** O cliente está autenticado no sistema (UC00 realizado) e possui uma reserva existente no sistema.\
 **Pós-condição:** A reserva é cancelada, o reembolso é processado e a disponibilidade dos assentos é restaurada.
 
 ## Fluxo Principal
@@ -194,7 +240,7 @@
 
 **ID:** UC06\
 **Ator(es):** A1 --- Cliente\
-**Pré-condição:** O cliente possui um ingresso digital emitido (UC04 realizado).\
+**Pré-condição:** O cliente está autenticado no sistema (UC00 realizado) e possui um ingresso digital emitido (UC04 realizado).\
 **Pós-condição:** O ingresso é impresso em formato físico.
 
 ## Fluxo Principal
@@ -386,7 +432,7 @@
 
 **ID:** UC12\
 **Ator(es):** A2 --- Administrador\
-**Pré-condição:** O administrador está autenticado no sistema.\
+**Pré-condição:** O administrador está autenticado no sistema (UC00 realizado).\
 **Pós-condição:** O filme é cadastrado, atualizado ou removido do sistema.
 
 ## Fluxo Principal
@@ -425,7 +471,7 @@
 
 **ID:** UC13\
 **Ator(es):** A2 --- Administrador\
-**Pré-condição:** O administrador está autenticado e há filmes e salas cadastrados no sistema.\
+**Pré-condição:** O administrador está autenticado no sistema (UC00 realizado) e há filmes e salas cadastrados no sistema.\
 **Pós-condição:** A sessão é cadastrada, atualizada ou removida.
 
 ## Fluxo Principal
@@ -459,7 +505,7 @@
 
 **ID:** UC14\
 **Ator(es):** A2 --- Administrador\
-**Pré-condição:** O administrador está autenticado no sistema.\
+**Pré-condição:** O administrador está autenticado no sistema (UC00 realizado).\
 **Pós-condição:** A sala é cadastrada, atualizada ou removida.
 
 ## Fluxo Principal
@@ -492,7 +538,7 @@
 
 **ID:** UC15\
 **Ator(es):** A2 --- Administrador\
-**Pré-condição:** O administrador está autenticado e existem dados de vendas registrados no sistema.\
+**Pré-condição:** O administrador está autenticado no sistema (UC00 realizado) e existem dados de vendas registrados no sistema.\
 **Pós-condição:** O relatório é gerado e exibido ao administrador.
 
 ## Fluxo Principal
@@ -526,7 +572,7 @@
 
 **ID:** UC16\
 **Ator(es):** A2 --- Administrador, A3 --- Sistema ANCINE\
-**Pré-condição:** Relatórios obrigatórios estão gerados e as sessões correspondentes estão encerradas.\
+**Pré-condição:** O administrador está autenticado no sistema (UC00 realizado), relatórios obrigatórios estão gerados e as sessões correspondentes estão encerradas.\
 **Pós-condição:** Os relatórios são enviados e confirmados pelo Sistema ANCINE.
 
 ## Fluxo Principal
@@ -563,7 +609,7 @@
 
 **ID:** UC17\
 **Ator(es):** A2 --- Administrador, A3 --- Sistema ANCINE\
-**Pré-condição:** A integração com o serviço da ANCINE está ativa e configurada.\
+**Pré-condição:** O administrador está autenticado no sistema (UC00 realizado) e a integração com o serviço da ANCINE está ativa e configurada.\
 **Pós-condição:** A lista de filmes oficiais é obtida e os títulos selecionados são disponibilizados nas salas.
 
 ## Fluxo Principal
@@ -599,6 +645,9 @@
 ---
 
 ## Diagrama de Classes
-![Diagrama de classes](images/diagramaDeClasse.jpeg "Title")
+![Diagrama de classes](images/diagramaDeClasse.drawio.png "Title")
+
+
+
 
 
