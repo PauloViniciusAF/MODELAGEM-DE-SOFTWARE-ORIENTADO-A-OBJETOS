@@ -648,6 +648,62 @@
 ![Diagrama de classes](images/diagramaDeClasse.drawio.png "Title")
 
 
+--- 
 
+## Diagramas de Sequências
+
+### UC00 - Realizar Login
+![Diagrama de sequência UC00 - Realizar Login](images/sequenciaUC00.png "Diagrama de Sequência - UC00 Realizar Login")
+
+### UC01 - Consultar Filmes em Cartaz
+![Diagrama de sequência UC01 - Consultar Filmes em Cartaz](images/sequenciaUC01.png "Diagrama de Sequência - UC01 Consultar Filmes em Cartaz")
+
+### UC02 - Selecionar Sessão
+![Diagrama de sequência UC02 - Selecionar Sessão](images/sequenciaUC02.png "Diagrama de Sequência - UC02 Selecionar Sessão")
+
+### UC03 - Escolher Assento
+![Diagrama de sequência UC03 - Escolher Assento](images/sequenciaUC03.png "Diagrama de Sequência - UC03 Escolher Assento")
+
+### UC04 - Reservar Ingresso
+![Diagrama de sequência UC04 - Reservar Ingresso](images/sequenciaUC04.png "Diagrama de Sequência - UC04 Reservar Ingresso")
+
+### UC05 - Cancelar Reserva
+![Diagrama de sequência UC05 - Cancelar Reserva](images/sequenciaUC05.png "Diagrama de Sequência - UC05 Cancelar Reserva")
+
+### UC06 - Imprimir Ingresso
+![Diagrama de sequência UC06 - Imprimir Ingresso](images/sequenciaUC06.png "Diagrama de Sequência - UC06 Imprimir Ingresso")
+
+### UC07 - Processar Pagamento
+![Diagrama de sequência UC07 - Processar Pagamento](images/sequenciaUC07.png "Diagrama de Sequência - UC07 Processar Pagamento")
+
+### UC08 - Verificar Disponibilidade
+![Diagrama de sequência UC08 - Verificar Disponibilidade](images/sequenciaUC08.png "Diagrama de Sequência - UC08 Verificar Disponibilidade")
+
+### UC09 - Aplicar Meia-entrada
+![Diagrama de sequência UC09 - Aplicar Meia-entrada](images/sequenciaUC09.png "Diagrama de Sequência - UC09 Aplicar Meia-entrada")
+
+### UC10 - Conceder Ingresso Gratuito de Aniversário
+![Diagrama de sequência UC10 - Conceder Ingresso Gratuito de Aniversário](images/sequenciaUC10.png "Diagrama de Sequência - UC10 Conceder Ingresso Gratuito de Aniversário")
+
+### UC11 - Reservar Melhores Assentos por Antecedência
+![Diagrama de sequência UC11 - Reservar Melhores Assentos por Antecedência](images/sequenciaUC11.png "Diagrama de Sequência - UC11 Reservar Melhores Assentos por Antecedência")
+
+### UC12 - Gerenciar Filmes
+![Diagrama de sequência UC12 - Gerenciar Filmes](images/sequenciaUC12.png "Diagrama de Sequência - UC12 Gerenciar Filmes")
+
+### UC13 - Gerenciar Sessões
+![Diagrama de sequência UC13 - Gerenciar Sessões](images/sequenciaUC13.png "Diagrama de Sequência - UC13 Gerenciar Sessões")
+
+### UC14 - Gerenciar Salas
+![Diagrama de sequência UC14 - Gerenciar Salas](images/sequenciaUC14.png "Diagrama de Sequência - UC14 Gerenciar Salas")
+
+### UC15 - Gerar Relatórios de Vendas
+![Diagrama de sequência UC15 - Gerar Relatórios de Vendas](images/sequenciaUC15.png "Diagrama de Sequência - UC15 Gerar Relatórios de Vendas")
+
+### UC16 - Enviar Relatórios para ANCINE
+![Diagrama de sequência UC16 - Enviar Relatórios para ANCINE](images/sequenciaUC16.png "Diagrama de Sequência - UC16 Enviar Relatórios para ANCINE")
+
+### UC17 - Consultar Lista Oficial ANCINE
+![Diagrama de sequência UC17 - Consultar Lista Oficial ANCINE](images/sequenciaUC17.png "Diagrama de Sequência - UC17 Consultar Lista Oficial ANCINE")
 
 
