@@ -645,7 +645,7 @@
 ---
 
 ## Diagrama de Classes
-![Diagrama de classes](images/diagramaDeClasse.drawio.png "Title")
+![Diagrama de classes](images/diagramaClasse.drawio.png "Title")
 
 
 
