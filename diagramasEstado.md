@@ -2,4 +2,4 @@
 
 ## Classe Usuário 
 ![Classe Usuário]
-(//www.plantuml.com/plantuml/png/RP112i9034NtESKiLUW5N4XrBLwWT14xGmcC4soItiUpU35D1R6rov_yzo2fHN5GksLeTcsegaEu81zDKr7gC3B0F4-LtxmF8sQAE9ovfxBPXaQiIoBShf6dp7TB7yutg3IY12hZy-4M0LWYCujpcNisXQzglHMJNAS6yR_pVUk2zqcTIlHFl000)
+(https://www.plantuml.com/plantuml/png/ROyz3i8m34Ptdo8Z8FK23AWm8ovGTJ1DL5bAOr7RkGzduMAGCa1_nYzvxqckHN5K6o8qXzPLrSdTaC-c8Ibrw1bWlYVaVnzTnaWUnoltb7PxruXrGOJRBVCI-M7XwvKVLCeeZb9-FKj509RAh5Ayo3sRmY-rIVaWzuaWNZS_joxyybA7v6s8Rm00)
