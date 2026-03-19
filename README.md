@@ -707,3 +707,56 @@
 ![Diagrama de sequência UC17 - Consultar Lista Oficial ANCINE](images/sequenciaUC17.png "Diagrama de Sequência - UC17 Consultar Lista Oficial ANCINE")
 
 
+## Diagramas de Estados 
+
+### Classe Usuário 
+
+![Classe Usuário](https://www.plantuml.com/plantuml/png/ROyz3i8m34Ptdo8Z8FK23AWm8ovGTJ1DL5bAOr7RkGzduMAGCa1_nYzvxqckHN5K6o8qXzPLrSdTaC-c8Ibrw1bWlYVaVnzTnaWUnoltb7PxruXrGOJRBVCI-M7XwvKVLCeeZb9-FKj509RAh5Ayo3sRmY-rIVaWzuaWNZS_joxyybA7v6s8Rm00)
+
+### Classe Cliente
+
+![Classe Cliente](https://www.plantuml.com/plantuml/png/PP2n2i9044Jx_OehLSWFM4Z4IX0BMx4OSaSuI7R3vfBlTxaOafXkPlVTt39bdw1fQ1jwdpwkA2xk2RaEAN2A5RmGRNr6rlxiHZJHGnzIHpuSYVxfL-Y3Zk0CwsJqphN9Nkp1ii_uJTfvQNo76gt5YKEdCbhcZWTNeO67qTMar-cqpjiVFzZKHFmHMppprWijVyoJCh2trhu0)
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
+
+### Classe Filme
+
+![Classe Filme](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJS4vCIImkAKfCoUVYGh31Kgwvpa35YLKALWfbcNd9fJc9HS6fnSM9-HgQ66eTIqeJSpAhW5oWwaGefyW5o2y6geQRH5Wf5qoQi2FGbRhb5oN251Cs61W0N0WTS267rBmKOFW00000)
+
+# FAZER AS OUTRAS CLASSES
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
+### Classe Administrador
+
+![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+
