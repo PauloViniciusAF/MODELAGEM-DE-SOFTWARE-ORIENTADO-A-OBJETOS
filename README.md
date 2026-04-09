@@ -726,37 +726,30 @@
 
 ![Classe Filme](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJS4vCIImkAKfCoUVYGh31Kgwvpa35YLKALWfbcNd9fJc9HS6fnSM9-HgQ66eTIqeJSpAhW5oWwaGefyW5o2y6geQRH5Wf5qoQi2FGbRhb5oN251Cs61W0N0WTS267rBmKOFW00000)
 
-# FAZER AS OUTRAS CLASSES
+### Classe Sala
 
-### Classe Administrador
+![Classe Sala](https://img.plantuml.biz/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJSCaiBiZFoonBpU52CC4oG1LSw68--IM9AOaALWh5gRcEnSMfUINvnLnGGLJJW6foCfDIYnABuEgu75BpKe1s0m00)
 
-![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+### Classe Assento
 
-### Classe Administrador
+![Classe Assento](https://img.plantuml.biz/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJyCaiAqhb0fDWFb0SYHUKMfnQL9QOagzWfP2PbvcScLW45U92I84K-YUN5a2K5IIc9-QcvfNaAoJdvwLb5kK2XT4KGyotKaXEp4jEpO6evkA26O6i8YqpDpYrk3WndyiXDIy5w6u0)
 
-![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+### Classe Sessão
 
-### Classe Administrador
+![Classe Sessão](https://img.plantuml.biz/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJSCaiBiZFoonBpU7YGh31Ka6fnQb5POafYGfM2eb9HPb5OQbvAObS266G8f_y4eYAujHSn-BYrBoI_68kg218tZNN4QWf5oGELbHSd9ZlcPUPd9c8OHHUfSYI8CKWzyCKkUObfnOLWLHnEG2T2FGU0000)
 
-![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+### Classe Reserva
 
-### Classe Administrador
+![Classe Reserva](https://img.plantuml.biz/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJS2xAJ4n9vEA2q12X_BoqpA9S4DTA8HdAAGfABKujAalKq4HHcfYNd9e3LGbX8odaGZ89f1fe9nT21qp48JKl1UWY0000)
 
-![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
 
-### Classe Administrador
+### Classe Pagamento
 
-![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+![Classe Pagamento](https://img.plantuml.biz/plantuml/png/PS_12eCm30RWUvuYHntq1JmCzmRYTUmGQX11MsbJdtyHMt7prlpvGfCs2WL9omplnmUDUMB7Rc0d351UHnoyvHZ93HuRN7CLEXffKUIh6gva7tcfskZmXI5PdiJVRCysnNyRSWXmjgyRgdNw0OeM9DD6lqmFWdE54hGwgzT-0G00)
 
-### Classe Administrador
+## FAZER
+### Classe Ingresso
 
-![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
+![Classe Ingresso](https://img.plantuml.biz/plantuml/png/PS_12eCm30RWUvuYHntq1JmCzmRYTUmGQX11MsbJdtyHMt7prlpvGfCs2WL9omplnmUDUMB7Rc0d351UHnoyvHZ93HuRN7CLEXffKUIh6gva7tcfskZmXI5PdiJVRCysnNyRSWXmjgyRgdNw0OeM9DD6lqmFWdE54hGwgzT-0G00)
 
-### Classe Administrador
-
-![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
-
-### Classe Administrador
-
-![Classe Administrador](https://www.plantuml.com/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCTomjISqhoKnEJCdduaBbWvKWywqKSlBJC_EuqDMufnQbvYLd9kQ1rQH3UKLkcJcvgSNwmQd5nVaWEZ4diPYB2wuOgXde5Yw7rBmKeBi0)
 
