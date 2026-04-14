@@ -747,9 +747,14 @@
 
 ![Classe Pagamento](https://img.plantuml.biz/plantuml/png/PS_12eCm30RWUvuYHntq1JmCzmRYTUmGQX11MsbJdtyHMt7prlpvGfCs2WL9omplnmUDUMB7Rc0d351UHnoyvHZ93HuRN7CLEXffKUIh6gva7tcfskZmXI5PdiJVRCysnNyRSWXmjgyRgdNw0OeM9DD6lqmFWdE54hGwgzT-0G00)
 
-## FAZER
 ### Classe Ingresso
 
-![Classe Ingresso](https://img.plantuml.biz/plantuml/png/PS_12eCm30RWUvuYHntq1JmCzmRYTUmGQX11MsbJdtyHMt7prlpvGfCs2WL9omplnmUDUMB7Rc0d351UHnoyvHZ93HuRN7CLEXffKUIh6gva7tcfskZmXI5PdiJVRCysnNyRSWXmjgyRgdNw0OeM9DD6lqmFWdE54hGwgzT-0G00)
+![Classe Ingresso](https://img.plantuml.biz/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJS4yjIap9v-A2q60XrzpCaamWsqeX5SGgyinBBqejBixNqEI2IO6KUUOMW8M1wZA1pCnS59LmMP3Iq9BCdCmga3t81ZWdvYMdve14uIomECXfLWh94B7SrBoIV2wu0KWAIk66EgJcfG3z1000)
 
+### Classe Relatório
 
+![Classe Relatorio](https://img.plantuml.biz/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJS2xAJ4p9v-A2q60XzzGY4DDA8Ht8A0fApKaioI_ApDVGv8BAW1IvvfLbGbIbWbX5Zdd9cNcfG3Km2P0Ye2LS3gbvAK0B0G00)
+
+### Classe Integração ANCINE
+
+![Classe Integração ANCINE](https://img.plantuml.biz/plantuml/png/SoWkIImgAStDuOhMYbNGrRLJy4lCzya4YgRamuLSYmjIYnA3KdCII_ABClEvqFWGDNbbcK0z2bOAgI1M4LnMGvCBOIHOAOnjfP2PLvnQb5a45d3BpCbDBGQgXfa4KWfq0HUoLX3V8JKl1UXW0000)
