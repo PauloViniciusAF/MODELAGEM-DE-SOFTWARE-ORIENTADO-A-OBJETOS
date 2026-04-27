@@ -1,0 +1,30 @@
+@startuml
+title UC09 - Aplicar Meia-entrada
+
+actor "A1 Cliente" as A1
+participant Reserva
+participant ItemReserva
+
+A1 -> Reserva: informar que deseja meia-entrada
+Reserva -> A1: solicitar categoria do benefício
+A1 -> Reserva: selecionar categoria (estudante/65+/professor)
+Reserva -> A1: solicitar documento comprobatório
+A1 -> Reserva: apresentar/informar documento
+Reserva -> Reserva: validar comprovação
+
+alt Comprovação válida
+  Reserva -> ItemReserva: marcar meiaEntrada=true e categoria
+  Reserva -> Reserva: aplicar desconto de 50%
+  Reserva -> A1: confirmar desconto aplicado
+else FA1 - Comprovação inválida
+  Reserva -> A1: exibir "Comprovação inválida..."
+  Reserva -> A1: oferecer outro documento ou ingresso integral
+  alt Cliente apresenta outro documento
+    A1 -> Reserva: reenviar comprovação
+  else FA2 - Cliente opta integral
+    A1 -> Reserva: prosseguir com ingresso integral
+    Reserva -> Reserva: manter valor original
+    Reserva -> A1: retornar ao fluxo UC04
+  end
+end
+@enduml

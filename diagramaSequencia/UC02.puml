@@ -1,0 +1,29 @@
+@startuml
+title UC02 - Selecionar Sessão
+
+actor "A1 Cliente" as A1
+participant Filme
+participant Sessao
+participant Sala
+participant Assento
+
+A1 -> Filme: selecionar filme em cartaz
+Filme -> Sessao: listar sessões disponíveis
+Sessao -> Sala: obter salas/locais
+Sessao -> A1: exibir horários, salas e unidades
+A1 -> Sessao: selecionar sessão
+Sessao -> Assento: verificar disponibilidade de assentos
+
+alt Sessão com assentos disponíveis
+  Sessao -> Sala: obter mapa de assentos da sala
+  Sala -> A1: apresentar mapa de assentos
+else FA1 - Sessão esgotada
+  Sessao -> A1: exibir "Sessão esgotada"
+  Sessao -> A1: sugerir outras sessões
+  A1 -> Sessao: selecionar outra sessão
+  Sessao -> Assento: verificar disponibilidade novamente
+else FA2 - Cliente retorna à lista de filmes
+  A1 -> Filme: voltar para filmes em cartaz
+  Filme -> A1: reiniciar UC01
+end
+@enduml

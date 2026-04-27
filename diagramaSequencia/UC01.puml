@@ -1,0 +1,21 @@
+@startuml
+title UC01 - Consultar Filmes em Cartaz
+
+actor "A1 Cliente" as A1
+participant Filme
+participant Sessao
+participant Sala
+participant Unidade
+
+A1 -> Filme: acessar opção "Filmes em cartaz"
+Filme -> Filme: buscar filmes emCartaz=true
+Filme -> Sessao: buscar sessões dos filmes
+Sessao -> Sala: obter sala da sessão
+Sala -> Unidade: obter unidade/local
+Filme -> A1: exibir título, sinopse, classificação e sessões
+A1 -> Filme: selecionar filme para ver detalhes/sessões
+
+alt FA1 - Nenhum filme disponível
+  Filme -> A1: exibir "Nenhum filme em cartaz no momento"
+end
+@enduml 

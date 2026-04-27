@@ -1,0 +1,28 @@
+@startuml
+title UC14 - Gerenciar Salas
+
+actor "A2 Administrador" as A2
+participant Sala
+participant Sessao
+
+A2 -> Sala: acessar gerenciamento de salas
+Sala -> A2: listar salas por unidade
+A2 -> Sala: escolher ação (cadastrar/editar/remover)
+A2 -> Sala: informar/alterar dados da sala
+Sala -> Sala: validar dados
+
+alt FA2 - Dados inválidos
+  Sala -> A2: exibir mensagens de erro
+  Sala -> A2: solicitar correção
+else Dados válidos
+  alt FA1 - Sala com sessões ativas
+    Sala -> Sessao: verificar sessões futuras
+    Sessao -> Sala: há sessões agendadas
+    Sala -> A2: exibir "Sala não pode ser removida..."
+    Sala -> A2: listar sessões vinculadas
+  else Operação permitida
+    Sala -> Sala: salvar/remover sala
+    Sala -> A2: confirmar operação
+  end
+end
+@enduml

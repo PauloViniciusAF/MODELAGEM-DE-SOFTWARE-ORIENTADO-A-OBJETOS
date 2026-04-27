@@ -1,0 +1,37 @@
+@startuml
+title UC16 - Enviar Relatórios para ANCINE
+
+actor "A2 Administrador" as A2
+actor "A3 Sistema ANCINE" as A3
+participant Sessao
+participant Reserva
+participant RelatorioANCINE
+participant IntegracaoANCINE
+
+Sessao -> Reserva: informar término de sessão
+Reserva -> RelatorioANCINE: gerar relatório obrigatório automático
+A2 -> RelatorioANCINE: acessar área ANCINE
+RelatorioANCINE -> A2: listar pendentes
+A2 -> RelatorioANCINE: revisar relatório
+A2 -> RelatorioANCINE: confirmar envio
+RelatorioANCINE -> IntegracaoANCINE: enviarRelatorio(relatório)
+IntegracaoANCINE -> A3: transmitir relatório
+
+alt Envio confirmado
+  A3 -> IntegracaoANCINE: confirmação de recebimento
+  IntegracaoANCINE -> RelatorioANCINE: retornar protocolo
+  RelatorioANCINE -> RelatorioANCINE: marcarEnviado(protocolo)
+  RelatorioANCINE -> A2: confirmar envio
+else FA1 - Falha na comunicação
+  IntegracaoANCINE -> RelatorioANCINE: erro de conexão
+  RelatorioANCINE -> A2: exibir "Falha na comunicação com ANCINE"
+  RelatorioANCINE -> RelatorioANCINE: registrar tentativa com falha
+  RelatorioANCINE -> A2: notificar reenvio automático agendado
+else FA2 - Relatório rejeitado
+  A3 -> IntegracaoANCINE: rejeição + inconsistências
+  IntegracaoANCINE -> RelatorioANCINE: retornar erros
+  RelatorioANCINE -> RelatorioANCINE: marcarRejeitado()
+  RelatorioANCINE -> A2: exibir erros para correção
+  A2 -> RelatorioANCINE: corrigir e reenviar
+end
+@enduml

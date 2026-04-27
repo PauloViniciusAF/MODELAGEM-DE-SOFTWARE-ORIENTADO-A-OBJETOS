@@ -1,0 +1,27 @@
+@startuml
+title UC03 - Escolher Assento
+
+actor "A1 Cliente" as A1
+participant Sala
+participant Assento
+participant Reserva
+
+A1 -> Sala: abrir mapa da sala da sessão
+Sala -> A1: exibir assentos (disponível/ocupado/reserva temporária)
+A1 -> Assento: selecionar um ou mais assentos
+Assento -> Assento: verificar disponibilidade em tempo real
+
+alt Assento(s) disponível(is)
+  Assento -> Assento: reservarTemporariamente()
+  Assento -> Reserva: associar assentos temporários
+  Reserva -> A1: exibir resumo da seleção
+else FA1 - Assento indisponível
+  Assento -> A1: exibir "Assento indisponível..."
+  Assento -> Sala: atualizar status no mapa
+  Sala -> A1: reapresentar mapa atualizado
+else FA2 - Cliente cancela seleção
+  A1 -> Reserva: cancelar seleção de assentos
+  Reserva -> Assento: liberar assentos temporários
+  Reserva -> A1: retornar à seleção de sessão (UC02)
+end
+@enduml

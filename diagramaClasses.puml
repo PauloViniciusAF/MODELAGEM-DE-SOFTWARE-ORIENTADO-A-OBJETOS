@@ -1,0 +1,168 @@
+@startuml
+title Sistema de Reserva de Ingressos
+
+skinparam classAttributeIconSize 0
+
+class Usuario {
+  +id: UUID
+  +nome: String
+  +email: String
+  +senha: String
+  +dataNascimento: Date
+  +perfil: String
+  +status: String
+  +tentativasFalhas: int
+  +autenticar(email, senha): boolean
+}
+
+class Cliente {
+  +codigoFidelidade: String
+  +membroFidelidade: boolean
+  +beneficioAniversarioUsadoMes: boolean
+  +solicitarMeiaEntrada(categoria): void
+  +elegivelIngressoAniversario(dataAtual): boolean
+  +elegivelAssentoPremium(dataCompra, dataSessao): boolean
+}
+
+class Administrador {
+  +matricula: String
+  +gerenciarFilmes(): void
+  +gerenciarSessoes(): void
+  +gerenciarSalas(): void
+  +gerarRelatorios(): void
+  +enviarRelatorioANCINE(relatorio): void
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Administrador
+
+class Cinema {
+  +id: UUID
+  +nome: String
+  +cnpj: String
+}
+
+class Unidade {
+  +id: UUID
+  +nome: String
+  +endereco: String
+  +cidade: String
+  +uf: String
+}
+
+Cinema "1" o-- "1..*" Unidade
+
+class Sala {
+  +id: UUID
+  +nome: String
+  +capacidade: int
+  +tipo: String
+  +ativa: boolean
+  +validarCapacidade(): boolean
+}
+
+Unidade "1" o-- "1..*" Sala
+
+class Assento {
+  +id: UUID
+  +fila: String
+  +numero: int
+  +premium: boolean
+  +status: String
+  +reservarTemporariamente(): void
+  +ocupar(): void
+  +liberar(): void
+}
+
+Sala "1" o-- "1..*" Assento
+
+class Filme {
+  +id: UUID
+  +titulo: String
+  +duracaoMin: int
+  +genero: String
+  +emCartaz: boolean
+}
+
+class Sessao {
+  +id: UUID
+  +dataHoraInicio: DateTime
+  +dataHoraFim: DateTime
+  +precoBase: Decimal
+  +encerrada: boolean
+  +estaEsgotada(): boolean
+  +encerrarSessao(): void
+}
+
+Filme "1" o-- "0..*" Sessao
+Sala  "1" o-- "0..*" Sessao
+
+class Reserva {
+  +id: UUID
+  +codigo: String
+  +dataHoraCriacao: DateTime
+  +valorTotal: Decimal
+  +status: String
+  +confirmar(): void
+  +cancelar(): void
+  +calcularValorTotal(): Decimal
+}
+
+Cliente "1" o-- "0..*" Reserva
+Sessao  "1" o-- "0..*" Reserva
+
+class ItemReserva {
+  +id: UUID
+  +precoUnitario: Decimal
+  +meiaEntrada: boolean
+  +categoriaMeia: String
+  +gratuitoAniversario: boolean
+}
+
+Reserva "1" o-- "1..*" ItemReserva
+Assento "1" o-- "0..*" ItemReserva
+
+class Pagamento {
+  +id: UUID
+  +forma: String
+  +valor: Decimal
+  +status: String
+  +dataHora: DateTime
+  +transacaoId: String
+  +processar(dados): String
+}
+
+Reserva "1" o-- "0..1" Pagamento
+
+class Ingresso {
+  +id: UUID
+  +codigoQR: String
+  +tipo: String
+  +emitidoEm: DateTime
+  +impresso: boolean
+  +emitirDigital(): void
+  +marcarImpresso(): void
+}
+
+Reserva "1" o-- "1..*" Ingresso
+
+
+class RelatorioANCINE {
+  +id: UUID
+  +status: String
+  +protocoloEnvio: String
+  +dataGeracao: DateTime
+  +dataEnvio: DateTime
+  +marcarEnviado(protocolo): void
+  +marcarRejeitado(): void
+}
+
+
+class IntegracaoANCINE {
+  +consultarListaOficial(): List<Filme>
+  +enviarRelatorio(relatorio): String
+}
+
+IntegracaoANCINE ..> RelatorioANCINE
+IntegracaoANCINE ..> Filme
+@enduml

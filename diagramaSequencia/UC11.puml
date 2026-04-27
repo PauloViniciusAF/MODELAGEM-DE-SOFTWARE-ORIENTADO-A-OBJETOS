@@ -1,0 +1,25 @@
+@startuml
+title UC11 - Reservar Melhores Assentos por Antecedência
+
+actor "A1 Cliente" as A1
+participant Cliente
+participant Sessao
+participant Sala
+participant Assento
+
+Cliente -> Cliente: verificar membro do programa de fidelidade
+Cliente -> Sessao: verificar antecedência mínima de 2 dias
+
+alt Elegível
+  Sessao -> Sala: liberar categorias premium/preferenciais
+  Sala -> Assento: destacar melhores assentos
+  Sala -> A1: exibir assentos (convencionais + premium)
+  A1 -> Assento: selecionar assento
+else FA1 - Não membro do programa
+  Sala -> A1: exibir apenas assentos convencionais
+  Sala -> A1: retornar fluxo normal UC03/UC04
+else FA2 - Sem antecedência mínima
+  Sala -> A1: exibir apenas assentos convencionais
+  Sala -> A1: retornar fluxo normal UC03/UC04
+end
+@enduml

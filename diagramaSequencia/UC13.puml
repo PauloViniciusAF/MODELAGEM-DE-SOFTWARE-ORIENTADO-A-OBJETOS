@@ -1,0 +1,31 @@
+@startuml
+title UC13 - Gerenciar Sessões
+
+actor "A2 Administrador" as A2
+participant Sessao
+participant Sala
+participant Ingresso
+
+A2 -> Sessao: acessar gerenciamento de sessões
+Sessao -> A2: listar sessões cadastradas
+A2 -> Sessao: escolher ação (cadastrar/editar/remover)
+A2 -> Sessao: informar/alterar dados (filme, sala, horário, unidade)
+Sessao -> Sala: verificar conflito de horário e sala
+
+alt FA1 - Conflito de horário/sala
+  Sala -> Sessao: conflito encontrado
+  Sessao -> A2: exibir "Conflito de horário — sala ocupada"
+  Sessao -> A2: exibir sessões conflitantes
+  Sessao -> A2: sugerir horários/salas alternativas
+else Sem conflito
+  alt FA2 - Remover sessão com ingressos vendidos
+    Sessao -> Ingresso: verificar ingressos vinculados
+    Ingresso -> Sessao: há ingressos vendidos
+    Sessao -> A2: exibir "Sessão não pode ser removida..."
+    Sessao -> A2: exibir quantidade vendida
+  else Operação permitida
+    Sessao -> Sessao: salvar/remover sessão
+    Sessao -> A2: confirmar operação
+  end
+end
+@enduml

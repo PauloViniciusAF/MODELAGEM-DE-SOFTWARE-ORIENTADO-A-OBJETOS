@@ -1,0 +1,20 @@
+@startuml
+title UC06 - Imprimir Ingresso
+
+actor "A1 Cliente" as A1
+participant Ingresso
+
+A1 -> Ingresso: acessar "Meus Ingressos"
+Ingresso -> A1: exibir ingressos digitais
+A1 -> Ingresso: selecionar ingresso
+A1 -> Ingresso: solicitar impressão
+Ingresso -> Ingresso: enviar para impressora
+
+alt Impressão realizada
+  Ingresso -> Ingresso: marcarImpresso()
+  Ingresso -> A1: informar ingresso impresso
+else FA1 - Impressora indisponível
+  Ingresso -> A1: exibir "Impressora indisponível no momento"
+  Ingresso -> A1: sugerir uso do ingresso digital
+end
+@enduml

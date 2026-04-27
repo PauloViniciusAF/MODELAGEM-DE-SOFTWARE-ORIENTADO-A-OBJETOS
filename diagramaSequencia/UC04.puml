@@ -1,0 +1,60 @@
+@startuml
+title UC04 - Reservar Ingresso
+
+actor "A1 Cliente" as A1
+participant Reserva
+participant Assento
+participant Pagamento
+participant Ingresso
+participant Sessao
+participant Cliente
+
+A1 -> Reserva: confirmar reserva
+Reserva -> A1: exibir resumo (filme, sessão, assentos, valor)
+
+alt FA3 - Elegível a melhores assentos por antecedência (UC11)
+  Reserva -> Cliente: verificar elegibilidade premium
+  Cliente -> Sessao: validar antecedência >= 2 dias
+  Sessao -> A1: reapresentar mapa com assentos premium liberados
+end
+
+Reserva -> Assento: verificar disponibilidade (UC08)
+
+alt FA5 - Assento não mais disponível
+  Assento -> Reserva: retornar indisponível
+  Reserva -> A1: exibir "Assento não mais disponível"
+  Reserva -> A1: retornar UC03 para nova seleção
+else Assento disponível
+  alt FA1 - Solicita meia-entrada (UC09)
+    A1 -> Reserva: solicitar meia-entrada
+    Reserva -> Reserva: aplicar desconto 50%
+    Reserva -> A1: atualizar valor total
+  end
+
+  alt FA2 - Solicita ingresso aniversário (UC10) e é elegível
+    A1 -> Reserva: solicitar benefício aniversário
+    Reserva -> Cliente: validar benefício
+    Reserva -> Reserva: zerar valor total
+    Reserva -> A1: informar pagamento dispensado
+  else Não usa benefício/aniversário não elegível
+    Reserva -> Pagamento: processar pagamento (UC07)
+    alt FA4 - Pagamento recusado
+      Pagamento -> A1: exibir "Pagamento recusado"
+      Reserva -> Assento: liberar assentos temporários
+      Reserva -> A1: oferecer tentar novamente ou cancelar
+      alt Cliente tenta novamente
+        A1 -> Pagamento: reenviar pagamento
+      else Cliente cancela
+        Reserva -> A1: encerrar caso de uso
+      end
+    else Pagamento aprovado
+      Pagamento -> Reserva: confirmar pagamento
+    end
+  end
+
+  Reserva -> Ingresso: emitir ingresso digital
+  Reserva -> Reserva: registrar venda (qtd ingressos e renda)
+  Reserva -> Assento: atualizar disponibilidade (ocupar)
+  Reserva -> A1: confirmar reserva + exibir ingresso digital
+end
+@enduml

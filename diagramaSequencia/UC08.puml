@@ -1,0 +1,17 @@
+@startuml
+title UC08 - Verificar Disponibilidade
+
+participant Assento
+participant Reserva
+
+Reserva -> Assento: consultar assentos em tempo real
+Assento -> Assento: verificar se assento(s) está(ão) livre(s)
+
+alt Assento disponível
+  Assento -> Assento: reservarTemporariamente()
+  Assento -> Reserva: retornar status "disponível e reservado temporariamente"
+else FA1 - Assento já reservado
+  Assento -> Reserva: rejeitar solicitação
+  Assento -> Reserva: retornar status "indisponível"
+end
+@enduml

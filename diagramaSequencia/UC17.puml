@@ -1,0 +1,32 @@
+@startuml
+title UC17 - Consultar Lista Oficial ANCINE
+
+actor "A2 Administrador" as A2
+actor "A3 Sistema ANCINE" as A3
+participant IntegracaoANCINE
+participant Filme
+participant Sala
+
+A2 -> IntegracaoANCINE: consultarListaOficial()
+IntegracaoANCINE -> A3: requisitar lista oficial de filmes
+
+alt Lista retornada com sucesso
+  A3 -> IntegracaoANCINE: retornar lista oficial
+  IntegracaoANCINE -> A2: exibir lista de filmes
+  A2 -> Filme: selecionar títulos para disponibilizar
+  A2 -> Sala: associar títulos às salas/unidades
+  Sala -> Filme: registrar disponibilização por sala
+  Filme -> A2: confirmar operação
+else FA1 - Falha na comunicação com ANCINE
+  IntegracaoANCINE -> A2: exibir "Falha na comunicação com o serviço da ANCINE..."
+else FA3 - Lista vazia
+  A3 -> IntegracaoANCINE: retornar lista vazia
+  IntegracaoANCINE -> A2: exibir "Nenhum filme disponível..."
+end
+
+alt FA2 - Filme já cadastrado no sistema
+  A2 -> Filme: selecionar título já existente
+  Filme -> A2: exibir "Filme já cadastrado no sistema"
+  Filme -> A2: destacar existentes e oferecer atualizar/ignorar
+end
+@enduml

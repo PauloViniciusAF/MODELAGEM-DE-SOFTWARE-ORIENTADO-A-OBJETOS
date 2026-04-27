@@ -1,0 +1,34 @@
+
+@startuml
+title UC07 - Processar Pagamento
+
+actor "A1 Cliente" as A1
+participant Reserva
+participant Pagamento
+
+Reserva -> A1: exibir valor total
+Pagamento -> A1: solicitar forma de pagamento
+A1 -> Pagamento: selecionar forma
+Pagamento -> A1: solicitar dados correspondentes
+A1 -> Pagamento: informar dados
+Pagamento -> Pagamento: validar dados
+
+alt Dados válidos
+  Pagamento -> Pagamento: processar transação operadora/banco
+  alt Pagamento aprovado
+    Pagamento -> Reserva: registrar pagamento
+    Pagamento -> A1: emitir comprovante
+  else FA1 - Pagamento recusado
+    Pagamento -> A1: exibir "Pagamento recusado..."
+    Pagamento -> A1: oferecer informar novos dados ou cancelar
+    alt Cliente informa novos dados
+      A1 -> Pagamento: reenviar dados
+    else Cliente cancela
+      Pagamento -> Reserva: status pagamento recusado
+    end
+  end
+else FA2 - Dados inválidos
+  Pagamento -> A1: exibir "Dados inválidos..."
+  Pagamento -> A1: solicitar correção e retorno ao passo de dados
+end
+@enduml

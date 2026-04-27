@@ -1,0 +1,36 @@
+@startuml
+title UC12 - Gerenciar Filmes
+
+actor "A2 Administrador" as A2
+participant Filme
+participant Sessao
+
+A2 -> Filme: acessar gerenciamento de filmes
+Filme -> A2: listar filmes cadastrados
+A2 -> Filme: escolher ação (cadastrar/editar/remover)
+A2 -> Filme: informar/alterar dados
+Filme -> Filme: validar dados
+
+alt Dados válidos
+  alt Remoção solicitada
+    Filme -> Sessao: verificar sessões futuras ativas
+    alt FA2 - Filme com sessões ativas
+      Sessao -> Filme: há sessões ativas
+      Filme -> A2: exibir "Filme não pode ser removido..."
+      Filme -> A2: listar sessões vinculadas
+    else Sem sessões ativas
+      Filme -> Filme: remover filme
+      Filme -> A2: confirmar operação
+    end
+  else Cadastro/Edição
+    Filme -> Filme: salvar alterações
+    Filme -> A2: confirmar operação
+  end
+else FA1 - Dados inválidos
+  Filme -> A2: exibir erros por campo
+  Filme -> A2: solicitar correção
+else FA3 - Filme já cadastrado
+  Filme -> A2: exibir "Filme já cadastrado no sistema"
+  Filme -> A2: sugerir edição do registro existente
+end
+@enduml

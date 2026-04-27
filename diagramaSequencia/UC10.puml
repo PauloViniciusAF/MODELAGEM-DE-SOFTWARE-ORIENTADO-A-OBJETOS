@@ -1,0 +1,27 @@
+@startuml
+title UC10 - Conceder Ingresso Gratuito de Aniversário
+
+actor "A1 Cliente" as A1
+participant Cliente
+participant Reserva
+
+A1 -> Reserva: solicitar ingresso gratuito de aniversário
+Reserva -> Cliente: verificar membro do programa de fidelidade
+Reserva -> Cliente: verificar mês de aniversário
+Reserva -> Cliente: verificar uso do benefício no mês
+
+alt Elegível
+  Reserva -> Reserva: zerar valor do ingresso
+  Reserva -> Cliente: registrar uso do benefício
+  Reserva -> A1: confirmar benefício aplicado
+else FA1 - Não cadastrado no programa
+  Reserva -> A1: exibir "Benefício disponível apenas para membros..."
+  Reserva -> A1: oferecer compra normal
+else FA2 - Não é mês de aniversário
+  Reserva -> A1: exibir "Benefício disponível apenas no mês..."
+  Reserva -> A1: oferecer compra normal
+else FA3 - Benefício já utilizado no mês
+  Reserva -> A1: exibir "Benefício já utilizado neste mês"
+  Reserva -> A1: oferecer compra normal
+end
+@enduml

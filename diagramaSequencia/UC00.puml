@@ -1,0 +1,37 @@
+@startuml
+title UC00 - Realizar Login
+
+actor "A1 Cliente" as A1
+actor "A2 Administrador" as A2
+participant Usuario
+
+A1 -> Usuario: acessar login
+Usuario -> A1: solicitar email e senha
+A1 -> Usuario: informar(email, senha)
+Usuario -> Usuario: autenticar(email, senha)
+
+alt Credenciais válidas e perfil Cliente
+  Usuario -> Usuario: identificar perfil = CLIENTE
+  Usuario -> A1: autenticar e redirecionar área do cliente
+else Credenciais válidas e perfil Administrador
+  A2 -> Usuario: informar(email, senha)
+  Usuario -> Usuario: autenticar(email, senha)
+  Usuario -> Usuario: identificar perfil = ADMINISTRADOR
+  Usuario -> A2: autenticar e redirecionar área do administrador
+else FA1 - Credenciais inválidas
+  Usuario -> A1: exibir "E-mail ou senha inválidos"
+  Usuario -> Usuario: incrementar tentativasFalhas
+  Usuario -> A1: solicitar credenciais novamente
+else FA2 - Conta bloqueada por tentativas
+  Usuario -> Usuario: bloquear conta temporariamente
+  Usuario -> A1: exibir "Conta bloqueada temporariamente..."
+else FA3 - Usuário não cadastrado
+  Usuario -> A1: exibir "Usuário não encontrado..."
+  Usuario -> A1: oferecer cadastro
+else FA4 - Recuperação de senha
+  A1 -> Usuario: selecionar "Esqueci minha senha"
+  Usuario -> A1: solicitar e-mail cadastrado
+  A1 -> Usuario: informar e-mail
+  Usuario -> A1: exibir "Link de recuperação enviado..."
+end
+@enduml

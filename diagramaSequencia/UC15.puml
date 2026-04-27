@@ -1,0 +1,33 @@
+@startuml
+title UC15 - Gerar Relatórios de Vendas
+
+actor "A2 Administrador" as A2
+participant Reserva
+participant Sessao
+participant Filme
+participant Sala
+
+A2 -> Reserva: acessar área de relatórios
+Reserva -> A2: exibir tipos (sessão/filme/sala/unidade/período)
+A2 -> Reserva: selecionar tipo
+A2 -> Reserva: informar filtros
+Reserva -> Sessao: consultar histórico de vendas e reservas
+Sessao -> Filme: consolidar por filme
+Sessao -> Sala: consolidar por sala/unidade
+Reserva -> Reserva: calcular total ingressos, renda e meia-entrada por categoria
+
+alt Dados encontrados
+  Reserva -> A2: exibir relatório consolidado
+  Reserva -> A2: oferecer exportação
+else FA1 - Nenhum dado para filtros
+  Reserva -> A2: exibir "Nenhum dado encontrado..."
+  Reserva -> A2: sugerir alterar filtros
+end
+
+alt FA2 - Relatório automático após término de sessão
+  Sessao -> Reserva: notificar sessão encerrada
+  Reserva -> Reserva: gerar relatório automático da sessão
+  Reserva -> Reserva: armazenar no histórico
+  Reserva -> A2: disponibilizar para consulta/envio ANCINE (UC16)
+end
+@enduml

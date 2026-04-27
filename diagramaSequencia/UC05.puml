@@ -1,0 +1,37 @@
+@startuml
+title UC05 - Cancelar Reserva
+
+actor "A1 Cliente" as A1
+participant Reserva
+participant Pagamento
+participant Assento
+participant Administrador
+
+A1 -> Reserva: acessar "Minhas Reservas"
+Reserva -> A1: listar reservas ativas
+A1 -> Reserva: selecionar reserva para cancelar
+Reserva -> Reserva: verificar política de cancelamento
+Reserva -> A1: solicitar confirmação
+A1 -> Reserva: confirmar cancelamento
+
+alt Cancelamento permitido
+  Reserva -> Reserva: cancelar()
+  Reserva -> Pagamento: processar reembolso
+  alt Reembolso realizado
+    Pagamento -> Reserva: reembolso confirmado
+    Reserva -> Assento: liberar assentos
+    Reserva -> A1: confirmar cancelamento
+  else FA2 - Falha no reembolso
+    Pagamento -> Reserva: falha no reembolso
+    Reserva -> Reserva: status = cancelamento pendente
+    Reserva -> Administrador: registrar falha para acompanhamento
+    Reserva -> A1: exibir "Falha no reembolso..."
+  end
+else FA1 - Fora do prazo
+  Reserva -> A1: exibir "Cancelamento não permitido — prazo expirado"
+  Reserva -> A1: informar política vigente
+else FA3 - Cliente desiste
+  A1 -> Reserva: não confirmar cancelamento
+  Reserva -> A1: manter reserva ativa e voltar à lista
+end
+@enduml
