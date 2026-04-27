@@ -13,6 +13,7 @@
 ---
 
 # UC00 --- Realizar Login
+![Sequencia_UC00]()
 
 **ID:** UC00\
 **Ator(es):** A1 --- Cliente, A2 --- Administrador\
@@ -645,7 +646,7 @@
 ---
 
 ## Diagrama de Classes
-![Diagrama de classes](images/diagramaClasse.drawio.png "Title")
+![Diagrama de classes](https://www.plantuml.com/plantuml/png/ZLPBSnit4xplhzZIYVu-MsLVLIwN6OfAM1KfZYJcFWI6wt7ms1hCyk0a_pt4ajZ2y57nROd6exkd1-3d9C0oUDS8YSFsXPAWXzPY-um9UJT-haB7c59CJPF-fD03Ws-DWvJc8aoRGN1bOdYXxzY-RveHQTTf0ARO_jMqxV_9thNhzUe-VuVeyQvz4QRGvT_eWLmza31yXNh0Wi0J94CUWyIxzXu4ytYFl3rPAY13gaS4Wu3G3j83kA-mnoX81c3841dWsSZWRJkU--QktSJe44BpJv6oS8H1y235H4jTV22BZYnO9SMZtt2DbRqokC60Mp8Kvu5so2cxiqvWuoCcDJ55HuO4-149ba4OBCmC27QHAHFSHRAZSmuxsg4hzQasdcNFvZA0gmHLI-OfPI-_C7eQ_3Xx4NtFyBRDto-O4iHBNiojfq0faufySCI3C9d1gPfro1WC0J-GyvXcXNODvLFYDGmSd2B0p-X08bDK48OTLTZyQR5wMiwu_2upznfAA3_-_UvTAQiULFgc05103_yTPHFwRzFloR9r6CFm0vqGB3AQgBOy2zcmhOyuKhlvSDF6FVsR3xUt_xifHnO6sSmVO0yzbEEEJIBKApPZ9wb0xI17dHVJsfbEJH6l2OwC2hjZ5iy9RabdAWmUEKxa-aDu5Ptp2u0FznY_ekyZ0nFuNFKwFz4CFN0zucY3N0tjXOmUQXM5UH4oHlrSXf0CJjbe1mO3yP729AR3WAmceLy02to_q8I7zjGdbOlobyYm2cJeU56-aiSQUo2lWJv7xYT8k1z6GnxS8Oi6cS7gQcCIMAOkoXwe2bqju0EtshbiInM0zzcweuI3gvUn8hOyH5fjkOcLPKNZWWaCQ0DoKYE_HW6dX9udniIm9VOw4GQ2GNSwvlArntzCE-_HidTMNXuEhQyeQevbl08N_Ij1Vzc3Khnr806cg7JvwV7G9PmUaaSaVMCpo41Ilo8gUeM3xe6QNbCwMGagKvIeBz21lzBraRqYDXRkQirqvNN9XI6ad8ILhIVt74ssdcSMR4nl2gPKLXBsdnFV8g2ykTTY-VjpTUBPFOgUX6nSUisNV9ythNmlS_cUEX9mTVmyi05U7TSKv7gf9ivD4N7oP6ejjT7AEuackhWCEpfhlf-HTUCL8CzMmuL-1i36sRJlcS1d_8OaO9N2gGg2NJvIAJ0nfC49yA-K17xRag63S_dtn_4w-dJXVyECovTAnDaPjxUVJfsxF6aygVcCmGxU_Gi0)
 
 
 --- 
