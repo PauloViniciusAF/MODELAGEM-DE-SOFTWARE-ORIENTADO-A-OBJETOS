@@ -1,0 +1,31 @@
+@startuml UC06-Imprimir_Ingresso
+title UC06 - Imprimir Ingresso
+
+start
+:Cliente acessa "Meus Ingressos";
+:Sistema exibe ingressos digitais;
+:Cliente seleciona ingresso para imprimir;
+:Cliente solicita impressão;
+:Sistema verifica disponibilidade da impressora;
+
+if (Impressora disponível?) then (Não)
+  :Exibe "Impressora indisponível no momento";
+  :Sugere usar ingresso digital no celular;
+  stop
+else (Sim)
+endif
+
+:Sistema envia ingresso para impressora;
+:Impressora imprime ingresso;
+:Cliente retira ingresso impresso;
+stop
+
+note right
+  **Pré-condição:**
+  Cliente autenticado (UC00)
+  Ingresso digital emitido (UC04)
+  
+  **Fluxos Alternativos:**
+  FA1: Impressora indisponível
+end note
+@enduml

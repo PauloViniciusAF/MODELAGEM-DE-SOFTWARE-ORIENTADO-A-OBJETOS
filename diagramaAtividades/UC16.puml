@@ -1,0 +1,49 @@
+@startuml UC16-Enviar_Relatorios_ANCINE
+title UC16 - Enviar Relatórios para ANCINE
+
+start
+:Sistema gera o relatório obrigatório automaticamente após o término de cada sessão;
+:Relatório contém: ingressos vendidos, renda, meia-entrada por categoria e títulos exibidos;
+:Administrador acessa a área de relatórios para a ANCINE;
+
+repeat
+  :Sistema exibe os relatórios pendentes de envio;
+  :Administrador revisa o relatório;
+  :Administrador confirma o envio;
+  :Sistema transmite o relatório ao Sistema ANCINE;
+
+  if (Falha na comunicação com ANCINE?) then (Sim)
+    :Exibe "Falha na comunicação com ANCINE";
+    :Sistema agenda o reenvio automático do relatório;
+    :Sistema registra a tentativa com falha no log;
+    :Administrador é notificado;
+    stop
+  else (Não)
+  endif
+
+  :Sistema ANCINE recebe e processa o relatório;
+
+  if (Relatório rejeitado pela ANCINE?) then (Sim)
+    :Sistema ANCINE retorna mensagem de rejeição com os erros encontrados;
+    :Sistema exibe os erros ao administrador;
+    :Administrador corrige os dados necessários;
+  else (Não)
+  endif
+repeat while (Relatório rejeitado pela ANCINE?) is (Sim)
+
+:Sistema ANCINE retorna confirmação de recebimento;
+:Sistema registra a confirmação;
+:Marca o relatório como "enviado";
+stop
+
+note right
+  **Pré-condição:**
+  Administrador autenticado (UC00)
+  Relatórios obrigatórios gerados
+  Sessões correspondentes encerradas
+
+  **Fluxos Alternativos:**
+  FA1: Falha na comunicação com ANCINE
+  FA2: Relatório rejeitado pela ANCINE
+end note
+@enduml

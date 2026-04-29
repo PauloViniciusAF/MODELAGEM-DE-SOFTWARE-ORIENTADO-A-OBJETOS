@@ -1,0 +1,37 @@
+@startuml UC11-Melhores_Assentos_Antecedencia
+title UC11 - Reservar Melhores Assentos por Antecedência
+
+start
+:Sistema verifica se cliente é membro fidelidade;
+
+if (Membro?) then (Não)
+  :Exibe apenas assentos convencionais;
+  stop
+else (Sim)
+endif
+
+:Sistema calcula dias até sessão;
+
+if (Pelo menos 2 dias de antecedência?) then (Não)
+  :Exibe apenas assentos convencionais;
+  stop
+else (Sim)
+endif
+
+:Sistema libera melhores assentos;
+:Destaca assentos premium/preferenciais no mapa;
+:Cliente seleciona entre assentos disponíveis;
+:Inclui opção de escolher assentos premium;
+stop
+
+note right
+  **Tipo:** <<extend>> UC04
+  **Pré-condição:**
+  Cliente membro do programa fidelidade
+  Compra com 2+ dias de antecedência
+  
+  **Fluxos Alternativos:**
+  FA1: Não é membro do programa
+  FA2: Compra sem antecedência mínima
+end note
+@enduml

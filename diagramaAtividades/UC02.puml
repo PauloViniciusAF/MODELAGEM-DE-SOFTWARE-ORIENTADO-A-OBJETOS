@@ -1,0 +1,37 @@
+@startuml UC02-Selecionar_Sessao
+title UC02 - Selecionar Sessão
+
+start
+:Sistema apresenta sessões disponíveis;
+:Exibe horários, salas e locais;
+
+repeat
+  if (Cliente opta por voltar à lista de filmes?) then (Sim)
+    :Sistema retorna à tela de filmes em cartaz (UC01);
+    stop
+  else (Não)
+  endif
+
+  :Cliente seleciona uma sessão;
+  :Sistema verifica disponibilidade de assentos;
+
+  if (Sessão esgotada?) then (Sim)
+    :Exibe "Sessão esgotada";
+    :Sugere outras sessões disponíveis;
+  else (Não)
+  endif
+repeat while (Sessão esgotada?) is (Sim)
+
+:Sistema apresenta o mapa de assentos da sala;
+stop
+
+note right
+  **Pré-condição:**
+  Cliente autenticado (UC00)
+  Filme selecionado (UC01)
+  
+  **Fluxos Alternativos:**
+  FA1: Sessão esgotada
+  FA2: Cliente retorna à lista de filmes
+end note
+@enduml

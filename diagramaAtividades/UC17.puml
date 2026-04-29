@@ -1,0 +1,50 @@
+@startuml UC17-Consultar_ANCINE
+title UC17 - Consultar Lista Oficial ANCINE
+
+start
+:Administrador acessa "Consultar Lista Oficial ANCINE";
+:Sistema envia requisição de consulta ao Sistema ANCINE;
+
+if (Falha na comunicação com o serviço ANCINE?) then (Sim)
+  :Exibe "Falha na comunicação com o serviço da ANCINE — tente novamente mais tarde";
+  stop
+else (Não)
+endif
+
+:Sistema ANCINE retorna a lista oficial de filmes disponíveis;
+
+if (Lista vazia?) then (Sim)
+  :Exibe "Nenhum filme disponível na lista oficial da ANCINE no momento";
+  stop
+else (Não)
+endif
+
+:Sistema exibe a lista de filmes ao administrador;
+
+repeat
+  :Administrador seleciona os títulos que deseja disponibilizar na rede;
+
+  if (Selecionou título já cadastrado no sistema?) then (Sim)
+    :Exibe "Filme já cadastrado no sistema";
+    :Sistema destaca os filmes já existentes na lista;
+    :Administrador pode optar por atualizar os dados ou ignorar;
+  else (Não)
+  endif
+repeat while (Selecionou título já cadastrado no sistema?) is (Sim)
+
+:Administrador associa os títulos selecionados às salas e unidades desejadas;
+:Sistema registra quais títulos foram disponibilizados em cada sala;
+:Sistema confirma a operação ao administrador;
+stop
+
+note right
+  **Pré-condição:**
+  Administrador autenticado (UC00)
+  Integração com o serviço da ANCINE ativa e configurada
+
+  **Fluxos Alternativos:**
+  FA1: Falha na comunicação com ANCINE
+  FA2: Filme já cadastrado no sistema
+  FA3: Lista vazia retornada
+end note
+@enduml

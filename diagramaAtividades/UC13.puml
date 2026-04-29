@@ -1,0 +1,49 @@
+@startuml UC13-Gerenciar_Sessoes
+title UC13 - Gerenciar Sessões
+
+start
+:Administrador acessa a área de gerenciamento de sessões;
+:Sistema exibe a lista de sessões cadastradas;
+:Administrador seleciona a ação (cadastrar, editar ou remover);
+
+if (Ação = Remover?) then (Sim)
+  if (Sessão possui ingressos vendidos?) then (Sim)
+    :Exibe "Sessão não pode ser removida — há ingressos vendidos";
+    :Sistema exibe a quantidade de ingressos vendidos;
+    stop
+  else (Não)
+    :Sistema remove a sessão;
+    :Sistema confirma a operação;
+    stop
+  endif
+else (Não)
+  :Administrador informa ou altera os dados da sessão;
+  :Dados: filme, sala, horário, local/unidade;
+
+  repeat
+    :Sistema valida os dados e verifica conflitos de horário e sala;
+
+    if (Conflito de horário/sala?) then (Sim)
+      :Exibe "Conflito de horário — sala já ocupada neste horário";
+      :Sistema exibe as sessões que geram conflito;
+      :Sistema sugere horários ou salas alternativas;
+      :Administrador ajusta os dados da sessão;
+    else (Não)
+    endif
+  repeat while (Conflito de horário/sala?) is (Sim)
+
+  :Sistema salva a sessão na base de dados;
+  :Sistema confirma a operação;
+  stop
+endif
+
+note right
+  **Pré-condição:**
+  Administrador autenticado (UC00)
+  Filmes e salas cadastrados
+
+  **Fluxos Alternativos:**
+  FA1: Conflito de horário/sala
+  FA2: Sessão com ingressos vendidos
+end note
+@enduml

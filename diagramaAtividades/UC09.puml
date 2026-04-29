@@ -1,0 +1,41 @@
+@startuml UC09-Aplicar_Meia_Entrada
+title UC09 - Aplicar Meia-entrada (<<extend>> UC04)
+
+start
+:Cliente informa que deseja meia-entrada;
+:Sistema solicita categoria do benefício;
+:Opções: Estudante, Maior de 65 anos, Professor;
+:Cliente seleciona categoria;
+
+repeat
+  :Sistema solicita o documento comprobatório;
+  :Cliente apresenta/informa o documento;
+  :Sistema valida a comprovação;
+
+  if (Documento válido?) then (Sim)
+  else (Não)
+    :Exibe "Comprovação inválida — desconto de meia-entrada não pode ser aplicado";
+
+    if (Cliente deseja apresentar outro documento?) then (Sim)
+    else (Não)
+      :Cliente opta por ingresso integral;
+      :Sistema mantém o valor original do ingresso;
+      stop
+    endif
+  endif
+repeat while (Documento inválido?) is (Sim)
+
+:Aplica desconto de 50%;
+:Registra categoria para fins de relatório;
+stop
+
+note right
+  **Tipo:** <<extend>> UC04
+  **Pré-condição:**
+  Processo de reserva em andamento (UC04)
+  
+  **Fluxos Alternativos:**
+  FA1: Comprovação inválida
+  FA2: Cliente opta por ingresso integral
+end note
+@enduml

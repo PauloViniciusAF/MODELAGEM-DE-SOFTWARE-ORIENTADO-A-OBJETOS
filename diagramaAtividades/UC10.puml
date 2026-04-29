@@ -1,0 +1,48 @@
+@startuml UC10-Ingresso_Aniversario
+title UC10 - Conceder Ingresso Gratuito de Aniversário
+
+start
+:Cliente solicita benefício de aniversário;
+:Sistema verifica cadastro em programa fidelidade;
+
+if (Membro fidelidade?) then (Não)
+  :Exibe "Benefício só para membros do programa";
+  :Oferece opção de compra normal;
+  stop
+else (Sim)
+endif
+
+:Sistema verifica mês de aniversário;
+
+if (Mês atual = mês de aniversário?) then (Não)
+  :Exibe "Benefício disponível apenas no mês de aniversário";
+  :Oferece opção de compra normal;
+  stop
+else (Sim)
+endif
+
+:Sistema verifica se já usou benefício este mês;
+
+if (Já utilizou?) then (Sim)
+  :Exibe "Benefício já utilizado neste mês";
+  :Oferece opção de compra normal;
+  stop
+else (Não)
+endif
+
+:Aplica benefício - zera valor;
+:Registra utilização do benefício;
+stop
+
+note right
+  **Tipo:** <<extend>> UC04
+  **Pré-condição:**
+  Cliente no mês de aniversário
+  Cadastrado em programa fidelidade
+  
+  **Fluxos Alternativos:**
+  FA1: Não é membro do programa
+  FA2: Não é mês de aniversário
+  FA3: Benefício já utilizado neste mês
+end note
+@enduml

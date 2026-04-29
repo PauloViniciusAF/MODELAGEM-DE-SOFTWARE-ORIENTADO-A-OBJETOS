@@ -1,0 +1,62 @@
+@startuml UC12-Gerenciar_Filmes
+title UC12 - Gerenciar Filmes
+
+start
+:Administrador acessa a área de gerenciamento de filmes;
+
+repeat
+  :Sistema exibe a lista de filmes cadastrados;
+  :Administrador seleciona a ação (cadastrar, editar ou remover);
+
+  if (Ação = Remover?) then (Sim)
+    if (Filme possui sessões futuras ativas?) then (Sim)
+      :Exibe "Filme não pode ser removido — possui sessões ativas";
+      :Sistema lista as sessões vinculadas;
+      stop
+    else (Não)
+      :Sistema remove o filme;
+      :Sistema confirma a operação ao administrador;
+      stop
+    endif
+  else (Não)
+    :Administrador informa ou altera os dados do filme;
+    :Dados: título, sinopse, duração, classificação indicativa, gênero;
+
+    repeat
+      :Sistema valida os dados informados;
+
+      if (Dados válidos?) then (Sim)
+      else (Não)
+        :Sistema exibe as mensagens de erro;
+        :Administrador corrige os dados;
+      endif
+    repeat while (Dados inválidos?) is (Sim)
+
+    if (Ação = Cadastrar?) then (Sim)
+      if (Filme já cadastrado no sistema?) then (Sim)
+        :Exibe "Filme já cadastrado no sistema";
+        :Sistema sugere editar o registro existente;
+        :Retorna à seleção de ação;
+      else (Não)
+        :Sistema salva as alterações na base de dados;
+        :Sistema confirma a operação ao administrador;
+        stop
+      endif
+    else (Não)
+      :Sistema salva as alterações na base de dados;
+      :Sistema confirma a operação ao administrador;
+      stop
+    endif
+  endif
+repeat while (Filme já cadastrado no sistema?) is (Sim)
+
+note right
+  **Pré-condição:**
+  Administrador autenticado (UC00)
+
+  **Fluxos Alternativos:**
+  FA1: Dados inválidos
+  FA2: Filme com sessões ativas
+  FA3: Filme já cadastrado
+end note
+@enduml

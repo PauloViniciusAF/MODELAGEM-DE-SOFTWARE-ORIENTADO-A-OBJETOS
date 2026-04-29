@@ -1,0 +1,46 @@
+@startuml UC14-Gerenciar_Salas
+title UC14 - Gerenciar Salas
+
+start
+:Administrador acessa a área de gerenciamento de salas;
+:Sistema exibe a lista de salas cadastradas, organizadas por unidade;
+:Administrador seleciona a ação (cadastrar, editar ou remover);
+
+if (Ação = Remover?) then (Sim)
+  if (Sala possui sessões futuras agendadas?) then (Sim)
+    :Exibe "Sala não pode ser removida — possui sessões agendadas";
+    :Sistema lista as sessões vinculadas;
+    stop
+  else (Não)
+    :Sistema remove a sala;
+    :Sistema confirma a operação;
+    stop
+  endif
+else (Não)
+  :Administrador informa ou altera os dados da sala;
+  :Dados: nome/número, capacidade, mapa de assentos, local/unidade;
+
+  repeat
+    :Sistema valida os dados informados;
+
+    if (Dados válidos?) then (Sim)
+    else (Não)
+      :Sistema exibe mensagens de erro;
+      :Administrador corrige os dados;
+    endif
+  repeat while (Dados inválidos?) is (Sim)
+
+  :Sistema salva as alterações na base de dados;
+  :Sistema confirma a operação;
+  stop
+endif
+
+note right
+  **Pré-condição:**
+  Administrador autenticado (UC00)
+
+  **Fluxos Alternativos:**
+  FA1: Sala com sessões ativas
+  FA2: Dados inválidos
+end note
+@enduml

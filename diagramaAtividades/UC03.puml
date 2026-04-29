@@ -1,0 +1,46 @@
+@startuml UC03-Escolher_Assento
+title UC03 - Escolher Assento
+
+start
+:Sistema exibe mapa de assentos;
+:Indica assentos: disponíveis, ocupados, reservados;
+
+repeat
+  if (Cliente cancela seleção?) then (Sim)
+    :Sistema libera os assentos reservados temporariamente;
+    :Retorna para seleção de sessão (UC02);
+    stop
+  else (Não)
+  endif
+
+  :Cliente seleciona um ou mais assentos;
+  :Sistema verifica disponibilidade em tempo real (UC08);
+
+  if (Reserva sendo realizada 2 dias ou mais antes da sessão?) then (Sim)
+    :Exibe "Melhores assentos disponíveis por estar realizando a reserva antecipada!"
+
+  else (Não)
+  endif
+
+  if (Assento(s) indisponível(is)?) then (Sim)
+    :Exibe "Assento indisponível, por favor selecione outro"
+    :Sistema atualiza o mapa de assentos;
+  else (Não)
+  endif
+repeat while (Assento(s) indisponível(is)?) is (Sim)
+
+:Sistema confirma a seleção;
+:Sistema reserva os assentos temporariamente;
+:Sistema exibe o resumo da seleção;
+stop
+
+note right
+  **Pré-condição:**
+  Cliente autenticado (UC00)
+  Sessão selecionada (UC02)
+  
+  **Fluxos Alternativos:**
+  FA1: Assento indisponível
+  FA2: Cliente cancela seleção
+end note
+@enduml

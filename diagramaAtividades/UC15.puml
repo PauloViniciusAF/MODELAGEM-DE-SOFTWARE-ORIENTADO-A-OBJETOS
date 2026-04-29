@@ -1,0 +1,45 @@
+@startuml UC15-Gerar_Relatorios
+title UC15 - Gerar Relatórios de Vendas
+
+start
+
+if (Gatilho = término de sessão?) then (Sim)
+  :Sistema detecta que uma sessão foi encerrada;
+  :Sistema gera automaticamente o relatório da sessão encerrada;
+  :Sistema armazena o relatório no histórico;
+  :Relatório fica disponível para consulta e envio à ANCINE (UC16);
+  stop
+else (Não)
+endif
+
+:Administrador acessa a área de relatórios;
+
+repeat
+  :Sistema exibe opções de tipo de relatório;
+  :Administrador seleciona o tipo (sessão, filme, sala, cinema/unidade ou período);
+  :Administrador informa os filtros aplicáveis (datas, filme, sala, unidade);
+  :Sistema consulta o histórico de vendas e reservas;
+
+  if (Dados disponíveis para o filtro?) then (Não)
+    :Exibe "Nenhum dado encontrado para os filtros selecionados";
+    :Sistema sugere alterar os filtros;
+  else (Sim)
+  endif
+repeat while (Nenhum dado encontrado?) is (Sim)
+
+:Sistema consolida os dados;
+:Registra: quantidade de ingressos vendidos, renda obtida, meia-entrada por categoria;
+:Sistema exibe o relatório consolidado;
+:Sistema oferece opção de exportar;
+stop
+
+note right
+  **Pré-condição:**
+  Administrador autenticado (UC00)
+  Dados de vendas registrados
+
+  **Fluxos Alternativos:**
+  FA1: Nenhum dado disponível
+  FA2: Relatório automático após sessão encerrada
+end note
+@enduml

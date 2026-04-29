@@ -1,0 +1,51 @@
+@startuml UC05-Cancelar_Reserva
+title UC05 - Cancelar Reserva
+
+start
+:Cliente acessa "Minhas Reservas";
+:Sistema exibe lista de reservas ativas;
+:Cliente seleciona reserva para cancelar;
+:Sistema verifica política de cancelamento;
+
+if (Dentro do prazo?) then (Não)
+  :Exibe "Cancelamento não permitido - prazo expirado";
+  :Informa política de cancelamento;
+  stop
+else (Sim)
+endif
+
+:Sistema solicita confirmação;
+
+if (Cliente confirma cancelamento?) then (Não)
+  :Sistema mantém a reserva ativa;
+  :Retorna à lista de reservas;
+  stop
+else (Sim)
+endif
+
+:Sistema cancela a reserva;
+:Sistema processa reembolso;
+
+if (Reembolso bem-sucedido?) then (Não)
+  :Exibe "Falha no reembolso - tente novamente";
+  :Marca reserva como "cancelamento pendente";
+  :Registra falha para acompanhamento;
+  stop
+else (Sim)
+endif
+
+:Sistema libera assentos;
+:Confirma cancelamento ao cliente;
+stop
+
+note right
+  **Pré-condição:**
+  Cliente autenticado (UC00)
+  Possui reserva existente
+  
+  **Fluxos Alternativos:**
+  FA1: Cancelamento fora do prazo
+  FA2: Falha no reembolso
+  FA3: Cliente desiste do cancelamento
+end note
+@enduml

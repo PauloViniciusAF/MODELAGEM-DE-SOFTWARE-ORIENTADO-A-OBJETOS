@@ -1,0 +1,87 @@
+@startuml UC04-Reservar_Ingresso
+title UC04 - Reservar Ingresso
+
+start
+:Sistema verifica elegibilidade para melhores assentos;
+
+if (Elegível para melhores assentos?) then (Sim)
+  :Executa UC11 (Reservar melhores assentos por antecedência);
+  :Mapa de assentos é atualizado com assentos premium;
+else (Não)
+endif
+
+:Sistema exibe resumo da reserva;
+:Mostra filme, sessão, assento(s), valor total;
+:Cliente confirma reserva;
+
+:Sistema verifica disponibilidade dos assentos (UC08);
+
+if (Assento não mais disponível?) then (Sim)
+  :Exibe "Assento não mais disponível";
+  :Retorna para UC03 (nova seleção);
+  stop
+else (Não)
+endif
+
+if (Cliente solicita meia-entrada?) then (Sim)
+  :Executa UC09 (Aplicar Meia-entrada);
+  :Sistema atualiza o valor total;
+else (Não)
+endif
+
+if (Cliente solicita ingresso gratuito de aniversário?) then (Sim)
+  :Executa UC10 (Conceder ingresso gratuito de aniversário);
+
+  if (Benefício concedido?) then (Sim)
+    :Sistema zera o valor total;
+    :Pagamento é dispensado;
+  else (Não)
+  endif
+else (Não)
+endif
+
+if (Valor total = 0?) then (Sim)
+  :Pagamento é dispensado;
+else (Não)
+  repeat
+    :Sistema processa pagamento (UC07);
+
+    if (Pagamento aprovado?) then (Sim)
+    else (Não)
+      :Exibe "Pagamento recusado";
+      :Sistema libera os assentos reservados temporariamente;
+
+      if (Cliente deseja tentar novamente?) then (Sim)
+        :Sistema verifica disponibilidade novamente (UC08);
+        if (Assento não mais disponível?) then (Sim)
+          :Exibe "Assento não mais disponível";
+          :Retorna para UC03 (nova seleção);
+          stop
+        else (Não)
+        endif
+      else (Não)
+        stop
+      endif
+    endif
+  repeat while (Pagamento recusado?) is (Sim)
+endif
+
+:Sistema emite ingresso digital;
+:Registra venda e renda;
+:Atualiza disponibilidade de assentos;
+:Confirma reserva ao cliente;
+stop
+
+note right
+  **Pré-condição:**
+  Cliente autenticado (UC00)
+  Assento(s) selecionado(s) (UC03)
+  
+  **Fluxos Alternativos:**
+  FA1: Meia-entrada (UC09)
+  FA2: Ingresso de aniversário (UC10)
+  FA3: Melhores assentos (UC11)
+  FA4: Pagamento recusado
+  FA5: Assento não mais disponível
+end note
+@enduml

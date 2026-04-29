@@ -1,0 +1,53 @@
+@startuml UC00-Realizar_Login
+title UC00 - Realizar Login
+
+start
+:Usuário acessa tela de login;
+
+repeat
+  :Sistema solicita credenciais (e-mail e senha);
+
+  if (Usuário seleciona "Esqueci minha senha"?) then (Sim)
+    :Sistema solicita o e-mail cadastrado;
+    :Usuário informa o e-mail;
+    :Sistema envia link de redefinição de senha;
+    :Exibe "Link de recuperação enviado para o e-mail informado";
+    stop
+  else (Não)
+  endif
+
+  :Usuário informa e-mail e senha;
+  :Sistema valida as credenciais informadas;
+
+  if (Usuário cadastrado?) then (Não)
+    :Exibe "Usuário não encontrado — verifique o e-mail ou cadastre-se";
+    stop
+  else (Sim)
+  endif
+
+  if (Credenciais corretas?) then (Sim)
+    :Sistema identifica o perfil do usuário;
+    :Sistema autentica o usuário;
+    :Redireciona para a tela inicial do perfil;
+    stop
+  else (Não)
+    :Exibe "E-mail ou senha inválidos";
+    :Sistema incrementa o contador de tentativas falhas;
+
+    if (Atingiu limite de tentativas?) then (Sim)
+      :Sistema bloqueia temporariamente a conta;
+      :Exibe "Conta bloqueada temporariamente — tente novamente em 30 minutos ou entre em contato com o suporte";
+      stop
+    else (Não)
+    endif
+  endif
+repeat while (Credenciais incorretas?) is (Sim)
+
+note right
+  **Fluxos Alternativos:**
+  FA1: Credenciais inválidas
+  FA2: Conta bloqueada por excesso de tentativas
+  FA3: Usuário não cadastrado
+  FA4: Recuperação de senha
+end note
+@enduml

@@ -1,0 +1,50 @@
+@startuml UC07-Processar_Pagamento
+title UC07 - Processar Pagamento (<<include>> UC04)
+
+start
+:Sistema exibe valor total da reserva;
+:Solicita forma de pagamento;
+:Cliente seleciona forma (cartão, débito, PIX, etc.);
+
+repeat
+  repeat
+    :Sistema solicita os dados de pagamento correspondentes;
+    :Cliente informa os dados de pagamento;
+    :Sistema valida os dados informados;
+
+    if (Dados válidos?) then (Sim)
+    else (Não)
+      :Exibe "Dados inválidos — por favor corrija as informações";
+    endif
+  repeat while (Dados inválidos?) is (Sim)
+
+  :Sistema processa a transação junto à operadora/banco;
+  :Sistema recebe a resposta da operadora/banco;
+
+  if (Pagamento aprovado?) then (Sim)
+    :Sistema registra o pagamento;
+    :Sistema emite comprovante;
+    stop
+  else (Não)
+    :Exibe "Pagamento recusado — verifique os dados ou tente outra forma de pagamento";
+
+    if (Cliente deseja tentar novamente?) then (Sim)
+      :Sistema solicita novamente a forma de pagamento (opcional);
+      :Cliente seleciona a forma de pagamento;
+    else (Não)
+      stop
+    endif
+  endif
+repeat while (Pagamento recusado?) is (Sim)
+
+note right
+  **Tipo:** <<include>> UC04
+  **Pré-condição:**
+  Reserva em andamento
+  Valor total calculado
+  
+  **Fluxos Alternativos:**
+  FA1: Pagamento recusado
+  FA2: Dados de pagamento inválidos
+end note
+@enduml

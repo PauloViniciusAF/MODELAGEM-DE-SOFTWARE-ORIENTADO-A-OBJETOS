@@ -1,0 +1,29 @@
+@startuml UC08-Verificar_Disponibilidade
+title UC08 - Verificar Disponibilidade
+
+start
+:Sistema consulta base de dados de assentos;
+:Verifica em tempo real;
+
+if (Assento(s) livre(s)?) then (Não)
+  :Rejeita solicitação;
+  :Retorna status "indisponível";
+  stop
+else (Sim)
+endif
+
+:Confirma disponibilidade;
+:Reserva assento(s) temporariamente;
+:Retorna status "confirmado";
+stop
+
+note right
+  **Tipo:** <<include>> UC03, UC04
+  **Ator:** (interno ao sistema)
+  **Pré-condição:**
+  Assento(s) selecionado(s)
+  
+  **Fluxos Alternativos:**
+  FA1: Assento já reservado
+end note
+@enduml

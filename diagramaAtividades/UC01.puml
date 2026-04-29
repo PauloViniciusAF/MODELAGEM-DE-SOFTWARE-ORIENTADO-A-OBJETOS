@@ -1,0 +1,27 @@
+@startuml UC01-Consultar_Filmes
+title UC01 - Consultar Filmes em Cartaz
+
+start
+:Cliente acessa "Filmes em Cartaz";
+:Sistema recupera filmes disponíveis;
+
+if (Filmes disponíveis?) then (Não)
+  :Exibe "Nenhum filme em cartaz no momento";
+  stop
+else (Sim)
+endif
+
+:Sistema exibe título, sinopse, classificação e sessões;
+:Cliente visualiza informações dos filmes;
+:Cliente seleciona um filme para detalhes;
+:Sistema exibe detalhes e sessões disponíveis;
+stop
+
+note right
+  **Pré-condição:**
+  Cliente autenticado (UC00)
+  
+  **Fluxos Alternativos:**
+  FA1: Nenhum filme disponível
+end note
+@enduml
